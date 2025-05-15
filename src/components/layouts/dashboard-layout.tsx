@@ -1,14 +1,14 @@
 
 import React from "react"
-import DashboardHeader from "@/components/common/dashboard-header"
-import DashboardSidebar from "@/components/common/dashboard-sidebar"
+import { DashboardHeader } from "../common/dashboard-header"
+import DashboardSidebar from "../common/dashboard-sidebar"
 
 interface DashboardLayoutProps {
-  type: "admin" | "manager";
-  children: React.ReactNode;
+  type: "admin" | "manager"
+  children: React.ReactNode
 }
 
-export default function DashboardLayout({ type, children }: DashboardLayoutProps) {
+export function DashboardLayout({ type, children }: DashboardLayoutProps) {
   return (
     <div className="flex min-h-screen bg-gray-50">
       <DashboardSidebar type={type} />
@@ -21,3 +21,5 @@ export default function DashboardLayout({ type, children }: DashboardLayoutProps
     </div>
   )
 }
+
+export default DashboardLayout

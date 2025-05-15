@@ -1,7 +1,6 @@
 
 import React from "react"
-import { Bell, ChevronDown, LogOut } from "lucide-react"
-import { Link } from "react-router-dom"
+import { Bell, ChevronDown } from "lucide-react"
 
 interface DashboardHeaderProps {
   type?: string
@@ -32,3 +31,5 @@ export function DashboardHeader({ type = "admin" }: DashboardHeaderProps) {
     </header>
   )
 }
+
+export default DashboardHeader
