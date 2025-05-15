@@ -1,24 +1,23 @@
 
 import React from "react"
-import { DashboardHeader, DashboardSidebar } from "../common"
+import { DashboardHeader } from "@/components/common/dashboard-header"
+import DashboardSidebar from "@/components/common/dashboard-sidebar"
 
-interface LayoutProps {
-  children: React.ReactNode
-  type: string
+interface DashboardLayoutProps {
+  type: "admin" | "manager";
+  children: React.ReactNode;
 }
 
-const DashboardLayout = ({ children, type }: LayoutProps) => {
+export default function DashboardLayout({ type, children }: DashboardLayoutProps) {
   return (
-    <div className="flex h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-gray-50">
       <DashboardSidebar type={type} />
-      <div className="flex-1 flex flex-col overflow-hidden">
-        <DashboardHeader />
-        <main className="flex-1 overflow-y-auto p-6 bg-white m-4 rounded-lg shadow-sm">
+      <div className="flex-1">
+        <DashboardHeader type={type} />
+        <main className="p-6 h-[calc(100vh-64px)] overflow-y-auto">
           {children}
         </main>
       </div>
     </div>
   )
 }
-
-export default DashboardLayout
