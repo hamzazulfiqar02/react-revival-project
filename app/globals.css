@@ -1,0 +1,189 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@font-face {
+  font-family: "El_Messiri";
+  src: url("../fonts/El_Messiri/ElMessiri-Bold.ttf");
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: url("../fonts//Poppins/Poppins-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Poppins_Medium";
+  src: url("../fonts//Poppins/Poppins-Medium.ttf");
+}
+
+
+@layer base {
+  :root {
+    --font-el-messiri: "El Messiri", serif;
+    --font-poppins: "Poppins", sans-serif;
+  }
+
+  .font-el-messiri {
+    font-family: var(--font-el-messiri);
+  }
+
+  .font-poppins {
+    font-family: var(--font-poppins);
+  }
+}
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 255, 255, 255;
+  --background-end-rgb: 255, 255, 255;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(to bottom, transparent, rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+}
+
+
+.text-balance {
+  text-wrap: balance;
+}
+
+:root {
+  --background: 0 0% 100%;
+  --foreground: 0 0% 3.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 0 0% 3.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 3.9%;
+  --primary: 340 64% 38%;
+  --primary-foreground: 0 0% 98%;
+  --secondary: 0 0% 96.1%;
+  --secondary-foreground: 0 0% 9%;
+  --muted: 0 0% 96.1%;
+  --muted-foreground: 0 0% 45.1%;
+  --accent: 0 0% 96.1%;
+  --accent-foreground: 0 0% 9%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 0 0% 89.8%;
+  --input: 0 0% 89.8%;
+  --ring: 0 0% 3.9%;
+  --radius: 0.5rem;
+}
+
+.dark {
+  --background: 0 0% 3.9%;
+  --foreground: 0 0% 98%;
+  --card: 0 0% 3.9%;
+  --card-foreground: 0 0% 98%;
+  --popover: 0 0% 3.9%;
+  --popover-foreground: 0 0% 98%;
+  --primary: 340 64% 38%;
+  --primary-foreground: 0 0% 98%;
+  --secondary: 0 0% 14.9%;
+  --secondary-foreground: 0 0% 98%;
+  --muted: 0 0% 14.9%;
+  --muted-foreground: 0 0% 63.9%;
+  --accent: 0 0% 14.9%;
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 0 0% 14.9%;
+  --input: 0 0% 14.9%;
+  --ring: 0 0% 83.1%;
+}
+
+* {
+  @apply border-border;
+}
+
+body {
+  @apply bg-background text-foreground;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  /* display: none; <- Crashes Chrome on hover */
+  -webkit-appearance: none;
+  margin: 0;
+  /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+input {
+  box-shadow: none !important;
+}
+
+select {
+  font-size: 12px;
+}
+
+option {
+  /* color: red !important; */
+  font-size: 12px;
+}
+
+#cusineType {
+  background-color: red !important;
+}
+
+/* Fix container width issues */
+.swiper {
+  width: 100% !important;
+  padding: 10px 0 !important;
+}
+
+.swiper-slide {
+  width: auto !important;
+  height: auto !important;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  width: 32px !important;
+  height: 32px !important;
+  background-color: white !important;
+  border-radius: 100px !important;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  color: black !important;
+}
+
+.swiper-button-prev:after,
+.swiper-button-next:after {
+  font-size: 14px !important;
+}
+
+/* input[type=checkbox] {
+  background-color: "#CB2C70" !important;
+} */
+
+#RFS-StepButton span {
+  display: none !important;
+}
+
+#RFS-LabelContainer {
+  display: flex !important;
+  justify-content: center !important
+}
+
+#RFS-Label {
+  font-size: 12px !important;
+  font-family: "Poppins" !important;
+  text-align: center !important;
+  color: #898F8F !important;
+  margin: 0 auto !important
+}
+
+.custom-bg {
+  width: 56px;
+  height: 56px;
+  background-image: url("/images/favourite-btn-bg.png");
+  background-position: contain;
+  background-repeat: no-repeat;
+  background-position: 100% 100%;
+}
