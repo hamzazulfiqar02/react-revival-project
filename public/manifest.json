@@ -1,0 +1,17 @@
+{
+  "name": "Super Mondays",
+  "short_name": "Super Mondays",
+  "description": "Dine More, Spend Less Every Monday!",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/logo.svg",
+      "sizes": "72x72",
+      "type": "image/svg",
+      "purpose": "any maskable"
+    }
+  ]
+}
