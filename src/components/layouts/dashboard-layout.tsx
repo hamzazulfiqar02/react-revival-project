@@ -1,6 +1,6 @@
 
 import React from "react"
-import { DashboardHeader } from "@/components/common/dashboard-header"
+import DashboardHeader from "@/components/common/dashboard-header"
 import DashboardSidebar from "@/components/common/dashboard-sidebar"
 
 interface DashboardLayoutProps {

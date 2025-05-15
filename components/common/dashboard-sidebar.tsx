@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from "next/link";
@@ -12,7 +13,7 @@ interface Props {
 }
 
 export default function DashboardSidebar({ type }: Props) {
-  const pathname = usePathname();
+  const pathname = usePathname() || "/";
 
   const getNavItems = (type: string) => {
     switch (type) {

@@ -1,7 +1,6 @@
-
 import React, { createContext, useContext, useState, useCallback } from "react"
 import { Menu, X } from "lucide-react"
-import { useIsMobile } from "@/hooks/use-mobile"
+import { useMobile } from "@/hooks/use-mobile"
 
 // Context
 type SidebarContextType = {
@@ -37,7 +36,7 @@ export function useSidebar() {
 
 export function Sidebar({ children, className = "" }: { children: React.ReactNode, className?: string }) {
   const { isOpen } = useSidebar()
-  const isMobile = useIsMobile()
+  const isMobile = useMobile()
   
   return (
     <aside
@@ -56,7 +55,7 @@ export function Sidebar({ children, className = "" }: { children: React.ReactNod
 
 export function SidebarTrigger() {
   const { toggle, isOpen } = useSidebar()
-  const isMobile = useIsMobile()
+  const isMobile = useMobile()
   
   if (!isMobile) return null
   
@@ -115,7 +114,7 @@ export function SidebarMenuButton({
 }) {
   const Comp = asChild ? React.Fragment : "button"
   const { close } = useSidebar()
-  const isMobile = useIsMobile()
+  const isMobile = useMobile()
   
   const handleClick = (e: React.MouseEvent) => {
     if (isMobile) close()

@@ -1,3 +1,4 @@
+
 "use client"
 
 import Link from "next/link"
@@ -6,7 +7,7 @@ import { Home, Ticket, Search, UserPlus, User } from "lucide-react"
 import { useMobile } from "@/hooks/use-mobile"
 
 export default function BottomNavigation() {
-  const pathname = usePathname()
+  const pathname = usePathname() || "/"
   const isMobile = useMobile()
 
   const navItems = [

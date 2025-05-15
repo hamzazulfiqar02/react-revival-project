@@ -1,3 +1,4 @@
+
 "use client"
 
 import Link from "next/link"
@@ -6,7 +7,7 @@ import Image from "next/image"
 import { Store, LogOut, House, UserRound, Handshake } from "lucide-react"
 
 export default function AdminSidebar() {
-  const pathname = usePathname()
+  const pathname = usePathname() || "/"
 
   const navItems = [
     {

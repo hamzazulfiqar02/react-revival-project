@@ -2,11 +2,11 @@
 import React from "react"
 import { Link, useLocation } from "react-router-dom"
 import { Home, Ticket, Search, User } from "lucide-react"
-import { useIsMobile } from "@/hooks/use-mobile"
+import { useMobile } from "@/hooks/use-mobile"
 
 export default function BottomNavigation() {
   const location = useLocation()
-  const isMobile = useIsMobile()
+  const isMobile = useMobile()
 
   const navItems = [
     { name: "Home", href: "/", icon: Home },

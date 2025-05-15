@@ -61,7 +61,9 @@ const Header = () => {
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <span className="text-sm font-medium">{user.name}</span>
+                <span className="text-sm font-medium">
+                  {user.user_metadata?.name || "User"}
+                </span>
               </Link>
               <button
                 onClick={() => signOut()}
