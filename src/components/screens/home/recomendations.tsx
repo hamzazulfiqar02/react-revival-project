@@ -1,6 +1,6 @@
 
 import React from "react";
-import { recommendations } from "@/constants/home";
+import { recommendations } from "../../../constants/home";
 import { ChevronRight } from "lucide-react";
 
 const Recomendations = () => {
