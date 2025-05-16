@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ChevronLeft, ChevronRight, LogOut } from 'lucide-react'
 import { useAuth } from '@/context/auth-context'
-import { QRCodeModal } from '@/components/common/qr-code-modal'
+import { QRCodeModal } from '../../components/common/qr-code-modal'
 import UserLayout from '@/components/layouts/user-layout'
 
 const AccountPage = () => {
