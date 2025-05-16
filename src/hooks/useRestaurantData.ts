@@ -119,10 +119,71 @@ export const useRestaurantData = (restaurantId: string = "restaurant1") => {
     queryFn: () => fetchRedemptions(restaurantId),
   });
 
+  // Mock update functions
+  const updateRestaurant = (data: Partial<Restaurant>) => {
+    console.log("Updating restaurant:", data);
+    // In a real app, this would make an API call
+    return Promise.resolve({ ...restaurant, ...data });
+  };
+
+  const addDeal = (deal: Omit<Deal, "id" | "restaurantId">) => {
+    console.log("Adding deal:", deal);
+    // In a real app, this would make an API call
+    return Promise.resolve({ id: `deal-${Date.now()}`, restaurantId, ...deal });
+  };
+
+  const updateDeal = (id: string, data: Partial<Deal>) => {
+    console.log("Updating deal:", id, data);
+    // In a real app, this would make an API call
+    return Promise.resolve({ id, ...data });
+  };
+
+  const deleteDeal = (id: string) => {
+    console.log("Deleting deal:", id);
+    // In a real app, this would make an API call
+    return Promise.resolve(true);
+  };
+
+  const addStaff = (staff: Omit<Staff, "id" | "restaurantId">) => {
+    console.log("Adding staff member:", staff);
+    // In a real app, this would make an API call
+    return Promise.resolve({ id: `staff-${Date.now()}`, restaurantId, ...staff });
+  };
+
+  const updateStaff = (id: string, data: Partial<Staff>) => {
+    console.log("Updating staff member:", id, data);
+    // In a real app, this would make an API call
+    return Promise.resolve({ id, ...data });
+  };
+
+  const deleteStaff = (id: string) => {
+    console.log("Deleting staff member:", id);
+    // In a real app, this would make an API call
+    return Promise.resolve(true);
+  };
+
+  const addRedemption = (redemption: Omit<Redemption, "id" | "restaurantId">) => {
+    console.log("Adding redemption:", redemption);
+    // In a real app, this would make an API call
+    return Promise.resolve({ 
+      id: `redemption-${Date.now()}`, 
+      restaurantId,
+      ...redemption
+    });
+  };
+
   return {
     restaurant,
     deals,
     staff,
-    redemptions
+    redemptions,
+    updateRestaurant,
+    addDeal,
+    updateDeal,
+    deleteDeal,
+    addStaff,
+    updateStaff,
+    deleteStaff,
+    addRedemption
   };
 };

@@ -1,7 +1,20 @@
 
 import React from "react";
 import { Card } from "@/components/ui/card";
-import { BarChart } from "@/components/ui/chart";
+import { 
+  ChartContainer, 
+  ChartTooltip, 
+  ChartTooltipContent 
+} from "@/components/ui/chart";
+import { 
+  BarChart as RechartsBarChart, 
+  Bar, 
+  XAxis, 
+  YAxis, 
+  CartesianGrid, 
+  Tooltip,
+  ResponsiveContainer
+} from "recharts";
 import { Restaurant, Deal, Redemption } from "@/types/restaurant";
 
 interface DashboardOverviewProps {
@@ -83,13 +96,32 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
       <Card className="p-6">
         <h3 className="text-lg font-medium mb-4">Redemptions by Day</h3>
         <div className="h-64">
-          <BarChart 
-            data={chartData}
-            index="name"
-            categories={["value"]}
-            yAxisWidth={40}
-            className="h-full"
-          />
+          <ChartContainer
+            config={{
+              value: { label: "Value" }
+            }}
+          >
+            <ResponsiveContainer width="100%" height="100%">
+              <RechartsBarChart data={chartData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip
+                  content={({ active, payload }) => {
+                    if (active && payload && payload.length) {
+                      return (
+                        <div className="bg-white p-2 border border-gray-200 rounded-md shadow-sm">
+                          <p className="font-medium">{`${payload[0].payload.name}: ${payload[0].value}`}</p>
+                        </div>
+                      );
+                    }
+                    return null;
+                  }}
+                />
+                <Bar dataKey="value" fill="#8884d8" />
+              </RechartsBarChart>
+            </ResponsiveContainer>
+          </ChartContainer>
         </div>
       </Card>
     </div>
