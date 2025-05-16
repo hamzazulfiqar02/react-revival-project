@@ -126,7 +126,7 @@ export const useRestaurantData = (restaurantId: string = "restaurant1") => {
     return Promise.resolve({ ...restaurant, ...data });
   };
 
-  const addDeal = (deal: Omit<Deal, "id" | "restaurantId">) => {
+  const addDeal = (deal: Partial<Deal>) => {
     console.log("Adding deal:", deal);
     // In a real app, this would make an API call
     return Promise.resolve({ id: `deal-${Date.now()}`, restaurantId, ...deal });
@@ -144,7 +144,7 @@ export const useRestaurantData = (restaurantId: string = "restaurant1") => {
     return Promise.resolve(true);
   };
 
-  const addStaff = (staff: Omit<Staff, "id" | "restaurantId">) => {
+  const addStaff = (staff: Partial<Staff>) => {
     console.log("Adding staff member:", staff);
     // In a real app, this would make an API call
     return Promise.resolve({ id: `staff-${Date.now()}`, restaurantId, ...staff });
@@ -162,7 +162,7 @@ export const useRestaurantData = (restaurantId: string = "restaurant1") => {
     return Promise.resolve(true);
   };
 
-  const addRedemption = (redemption: Omit<Redemption, "id" | "restaurantId">) => {
+  const addRedemption = (redemption: Partial<Redemption>) => {
     console.log("Adding redemption:", redemption);
     // In a real app, this would make an API call
     return Promise.resolve({ 
