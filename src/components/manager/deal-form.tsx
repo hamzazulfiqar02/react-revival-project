@@ -19,7 +19,7 @@ export function DealForm({ type, onSubmit, initialData }: DealFormProps) {
     type,
     name: "",
     description: "",
-    days: [],
+    days: type === 'BOGO' ? ['mon'] : [],
     startDate: new Date().toISOString().split('T')[0],
     isActive: true,
     startTime: type === 'HAPPY_HOUR' ? "17:00" : undefined,
