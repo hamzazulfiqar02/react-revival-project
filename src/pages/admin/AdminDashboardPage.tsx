@@ -1,7 +1,7 @@
 
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
-import { DashboardLayout } from '@/components/layouts/dashboard-layout'
+import DashboardLayout from '@/components/layouts/dashboard-layout'
 import { StatCard } from '@/components/common'
 import { Store, Users, Activity, Settings } from 'lucide-react'
 
