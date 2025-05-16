@@ -24,6 +24,7 @@ import ExplorePage from "./pages/explore/ExplorePage"
 import AccountPage from "./pages/account/AccountPage"
 import StaffBoardPage from "./pages/staff/StaffBoardPage"
 import ManagerDashboardPage from "./pages/manager/ManagerDashboardPage"
+import AdminDashboardPage from "./pages/admin/AdminDashboardPage"
 import NotFound from "./pages/NotFound"
 
 const queryClient = new QueryClient()
@@ -58,6 +59,9 @@ const App = () => (
               {/* Staff & Manager Routes */}
               <Route path="/staff/board" element={<StaffBoardPage />} />
               <Route path="/manager/*" element={<ManagerDashboardPage />} />
+              
+              {/* Admin Routes */}
+              <Route path="/admin/*" element={<AdminDashboardPage />} />
               
               {/* 404 Route */}
               <Route path="*" element={<NotFound />} />

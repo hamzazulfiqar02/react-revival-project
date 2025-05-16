@@ -1,16 +1,16 @@
 
-import React from "react"
-import { Bell, ChevronDown } from "lucide-react"
+import React from "react";
+import { Bell, ChevronDown } from "lucide-react";
 
 interface DashboardHeaderProps {
-  type?: string
+  type?: "admin" | "manager";
 }
 
 export function DashboardHeader({ type = "admin" }: DashboardHeaderProps) {
   return (
     <header className="flex items-center justify-between bg-white border-b border-gray-200 py-4 px-6">
       <div>
-        <h1 className="text-lg font-semibold text-Black100">
+        <h1 className="text-lg font-semibold text-black">
           {type === "admin" ? "Admin Dashboard" : "Restaurant Dashboard"}
         </h1>
       </div>
@@ -22,14 +22,20 @@ export function DashboardHeader({ type = "admin" }: DashboardHeaderProps) {
         
         <div className="flex items-center space-x-2">
           <div className="w-8 h-8 bg-gray-200 rounded-full overflow-hidden">
-            <img src="/placeholder-user.jpg" alt="User" className="w-full h-full object-cover" />
+            <img 
+              src="/profile.png" 
+              alt="User" 
+              className="w-full h-full object-cover" 
+            />
           </div>
-          <span className="text-sm font-medium text-gray-700">Admin</span>
+          <span className="text-sm font-medium text-gray-700">
+            {type === "admin" ? "Admin" : "Restaurant Manager"}
+          </span>
           <ChevronDown size={16} className="text-gray-500" />
         </div>
       </div>
     </header>
-  )
+  );
 }
 
-export default DashboardHeader
+export default DashboardHeader;
