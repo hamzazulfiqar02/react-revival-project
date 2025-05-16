@@ -6,7 +6,7 @@ import type React from "react";
 import { ReactNode, useState } from "react";
 import { Field, ErrorMessage, useField } from "formik";
 import { Eye, EyeOff, Mail } from "lucide-react";
-import KeyIcon from "../../icons/KeyIcon";
+import { KeyIcon } from "lucide-react";
 
 interface FormInputProps {
   label?: string | ReactNode;
@@ -56,7 +56,7 @@ export default function FormInput({
     }
 
     if (iconType === "key") {
-      return <KeyIcon />;
+      return <KeyIcon size={18} />;
     }
 
     return null;
