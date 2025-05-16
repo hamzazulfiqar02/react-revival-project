@@ -9,6 +9,10 @@ export const toast = {
   
   error: (message: string) => {
     return reactToast.error(message || "Something went wrong");
+  },
+  
+  info: (message: string) => {
+    return reactToast.info(message || "Information");
   }
 };
 
@@ -19,4 +23,8 @@ export const SuccessToast = (message: string) => {
 
 export const ErrorToast = (message: string) => {
   return reactToast.error(message || "Something went wrong");
+};
+
+export const InfoToast = (message: string) => {
+  return reactToast.info(message || "Information");
 };

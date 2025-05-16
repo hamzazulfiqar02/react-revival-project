@@ -1,16 +1,16 @@
 
-import React from 'react'
-import { Routes, Route, useNavigate } from 'react-router-dom'
-import DashboardLayout from '@/components/layouts/dashboard-layout'
-import { useRestaurantData } from '@/hooks/useRestaurantData'
+import React from 'react';
+import { Routes, Route, useNavigate } from 'react-router-dom';
+import DashboardLayout from '@/components/layouts/dashboard-layout';
+import { useRestaurantData } from '@/hooks/useRestaurantData';
 
 // Import manager components
-import { DashboardOverview } from '@/components/manager/dashboard-overview'
-import { DealManagement } from '@/components/manager/deal-management'
-import { StaffManagement } from '@/components/manager/staff-management'
-import { RedeemReporting } from '@/components/manager/redeem-reporting'
-import { RedemptionHistory } from '@/components/manager/redemption-history'
-import { RestaurantSettings } from '@/components/manager/restaurant-settings'
+import { DashboardOverview } from '@/components/manager/dashboard-overview';
+import { DealManagement } from '@/components/manager/deal-management';
+import { StaffManagement } from '@/components/manager/staff-management';
+import { RedeemReporting } from '@/components/manager/redeem-reporting';
+import { RedemptionHistory } from '@/components/manager/redemption-history';
+import { RestaurantSettings } from '@/components/manager/restaurant-settings';
 
 export default function ManagerDashboardPage() {
   const navigate = useNavigate();
@@ -33,14 +33,14 @@ export default function ManagerDashboardPage() {
     <Routes>
       <Route path="/" element={
         <DashboardLayout type="manager">
-          <DashboardOverview redemptions={redemptions} />
+          <DashboardOverview restaurant={restaurant} deals={deals} redemptions={redemptions} />
         </DashboardLayout>
       } />
       
       <Route path="/deal-management" element={
         <DashboardLayout type="manager">
           <DealManagement 
-            deals={deals} 
+            deals={deals || []} 
             onAddDeal={addDeal}
             onUpdateDeal={updateDeal}
             onDeleteDeal={deleteDeal}
@@ -51,7 +51,7 @@ export default function ManagerDashboardPage() {
       <Route path="/staff-management" element={
         <DashboardLayout type="manager">
           <StaffManagement 
-            staff={staff}
+            staff={staff || []}
             onAddStaff={addStaff}
             onUpdateStaff={updateStaff}
             onDeleteStaff={deleteStaff}
@@ -67,18 +67,18 @@ export default function ManagerDashboardPage() {
       
       <Route path="/redemption-history" element={
         <DashboardLayout type="manager">
-          <RedemptionHistory redemptions={redemptions} />
+          <RedemptionHistory redemptions={redemptions || []} />
         </DashboardLayout>
       } />
       
       <Route path="/settings" element={
         <DashboardLayout type="manager">
           <RestaurantSettings 
-            restaurant={restaurant}
+            restaurant={restaurant!}
             onUpdateRestaurant={updateRestaurant}
           />
         </DashboardLayout>
       } />
     </Routes>
-  )
+  );
 }
