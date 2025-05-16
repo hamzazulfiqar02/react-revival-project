@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -44,7 +43,7 @@ export function RedeemForm({ onSubmit }: RedeemFormProps) {
     
     const mockQRCode = `USER-${Math.floor(1000 + Math.random() * 9000)}`;
     setQrCodes([...qrCodes, mockQRCode]);
-    setFormData(prev => ({
+    setFormData((prev: Partial<Redemption>) => ({
       ...prev,
       claimedUsers: (prev.claimedUsers || 0) + 1
     }));

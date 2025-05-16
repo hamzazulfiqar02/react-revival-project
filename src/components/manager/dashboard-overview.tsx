@@ -18,9 +18,9 @@ import {
 import { Restaurant, Deal, Redemption } from "@/types/restaurant";
 
 interface DashboardOverviewProps {
-  restaurant: Restaurant | undefined;
-  deals: Deal[] | undefined;
-  redemptions: Redemption[] | undefined;
+  restaurant?: Restaurant;
+  deals?: Deal[];
+  redemptions?: Redemption[];
 }
 
 export const DashboardOverview: React.FC<DashboardOverviewProps> = ({ 
