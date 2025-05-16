@@ -27,50 +27,53 @@ import ManagerDashboardPage from "./pages/manager/ManagerDashboardPage"
 import AdminDashboardPage from "./pages/admin/AdminDashboardPage"
 import NotFound from "./pages/NotFound"
 
-const queryClient = new QueryClient()
-
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <BrowserRouter>
-      <AuthProvider>
-        <FavoritesProvider>
-          <TooltipProvider>
-            <Toaster />
-            <Sonner />
-            <ToastContainer autoClose={3000} />
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              
-              {/* Authentication Routes */}
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/signup" element={<SignupPage />} />
-              <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-              <Route path="/reset-password" element={<ResetPasswordPage />} />
-              
-              {/* Customer Routes */}
-              <Route path="/explore-restaurants" element={<ExploreRestaurantsPage />} />
-              <Route path="/restaurant/:id" element={<RestaurantDetailPage />} />
-              <Route path="/deals" element={<DealsPage />} />
-              <Route path="/discount" element={<DiscountPage />} />
-              <Route path="/feedback" element={<FeedbackPage />} />
-              <Route path="/explore" element={<ExplorePage />} />
-              <Route path="/account" element={<AccountPage />} />
-              
-              {/* Staff & Manager Routes */}
-              <Route path="/staff/board" element={<StaffBoardPage />} />
-              <Route path="/manager/*" element={<ManagerDashboardPage />} />
-              
-              {/* Admin Routes */}
-              <Route path="/admin/*" element={<AdminDashboardPage />} />
-              
-              {/* 404 Route */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </TooltipProvider>
-        </FavoritesProvider>
-      </AuthProvider>
-    </BrowserRouter>
-  </QueryClientProvider>
-)
+const App = () => {
+  // Move the QueryClient instantiation inside the component
+  const queryClient = new QueryClient()
+  
+  return (
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <AuthProvider>
+          <FavoritesProvider>
+            <TooltipProvider>
+              <Toaster />
+              <Sonner />
+              <ToastContainer autoClose={3000} />
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                
+                {/* Authentication Routes */}
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/signup" element={<SignupPage />} />
+                <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+                <Route path="/reset-password" element={<ResetPasswordPage />} />
+                
+                {/* Customer Routes */}
+                <Route path="/explore-restaurants" element={<ExploreRestaurantsPage />} />
+                <Route path="/restaurant/:id" element={<RestaurantDetailPage />} />
+                <Route path="/deals" element={<DealsPage />} />
+                <Route path="/discount" element={<DiscountPage />} />
+                <Route path="/feedback" element={<FeedbackPage />} />
+                <Route path="/explore" element={<ExplorePage />} />
+                <Route path="/account" element={<AccountPage />} />
+                
+                {/* Staff & Manager Routes */}
+                <Route path="/staff/board" element={<StaffBoardPage />} />
+                <Route path="/manager/*" element={<ManagerDashboardPage />} />
+                
+                {/* Admin Routes */}
+                <Route path="/admin/*" element={<AdminDashboardPage />} />
+                
+                {/* 404 Route */}
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </TooltipProvider>
+          </FavoritesProvider>
+        </AuthProvider>
+      </BrowserRouter>
+    </QueryClientProvider>
+  )
+}
 
 export default App
