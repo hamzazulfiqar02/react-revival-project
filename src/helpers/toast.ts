@@ -1,12 +1,12 @@
 
-import { toast } from "react-toastify";
+import { toast as reactToast } from "react-toastify";
 
 export const toast = {
   success: (message: string) => {
-    return toast.success(<p className="!ml-2">{message || "Successful"}</p>);
+    return reactToast.success(message || "Successful");
   },
   
   error: (message: string) => {
-    return toast.error(<p className="!ml-2">{message || "Something went wrong"}</p>);
+    return reactToast.error(message || "Something went wrong");
   }
 };
