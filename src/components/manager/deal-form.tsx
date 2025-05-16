@@ -3,10 +3,10 @@ import React, { useState } from "react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
-import { DaySelector } from "../common/day-selector";
 import { Label } from "../ui/label";
 import { Deal } from "../../types/restaurant";
-import { Calendar, Clock, FileText, Upload } from "lucide-react";
+import { BOGOFormSection } from "./form/bogo-form-section";
+import { HappyHourFormSection } from "./form/happy-hour-form-section";
 
 interface DealFormProps {
   type: 'BOGO' | 'HAPPY_HOUR';
@@ -39,7 +39,9 @@ export function DealForm({ type, onSubmit, initialData }: DealFormProps) {
   
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      setMenuFile(e.target.files[0]);
+      if (e.target.id === "menu") {
+        setMenuFile(e.target.files[0]);
+      }
     }
   };
   
@@ -74,122 +76,22 @@ export function DealForm({ type, onSubmit, initialData }: DealFormProps) {
         />
       </div>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <Label htmlFor="startDate">Start Date</Label>
-          <div className="relative">
-            <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" size={16} />
-            <Input
-              id="startDate"
-              name="startDate"
-              type="date"
-              value={formData.startDate}
-              onChange={handleChange}
-              className="pl-10"
-              required
-            />
-          </div>
-        </div>
-        <div>
-          <Label htmlFor="endDate">End Date (Optional)</Label>
-          <div className="relative">
-            <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" size={16} />
-            <Input
-              id="endDate"
-              name="endDate"
-              type="date"
-              value={formData.endDate}
-              onChange={handleChange}
-              className="pl-10"
-            />
-          </div>
-        </div>
-      </div>
-      
-      {type === 'HAPPY_HOUR' && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <Label htmlFor="startTime">Start Time</Label>
-            <div className="relative">
-              <Clock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" size={16} />
-              <Input
-                id="startTime"
-                name="startTime"
-                type="time"
-                value={formData.startTime}
-                onChange={handleChange}
-                className="pl-10"
-                required
-              />
-            </div>
-          </div>
-          <div>
-            <Label htmlFor="endTime">End Time</Label>
-            <div className="relative">
-              <Clock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" size={16} />
-              <Input
-                id="endTime"
-                name="endTime"
-                type="time"
-                value={formData.endTime}
-                onChange={handleChange}
-                className="pl-10"
-                required
-              />
-            </div>
-          </div>
-        </div>
-      )}
-      
-      <div>
-        <Label>Available Days</Label>
-        <DaySelector 
-          value={formData.days || []}
-          onValueChange={handleDaysChange}
+      {type === 'BOGO' ? (
+        <BOGOFormSection
+          formData={formData}
+          handleChange={handleChange}
+          handleDaysChange={handleDaysChange}
+          handleFileChange={handleFileChange}
+          menuFile={menuFile}
         />
-        {type === 'BOGO' && (
-          <p className="text-xs text-gray-500 mt-1">Note: Monday is always included for BOGO deals</p>
-        )}
-      </div>
-      
-      <div>
-        <Label htmlFor="menu">Upload Menu (PDF)</Label>
-        <div className="border border-dashed border-gray-300 rounded-lg p-4 cursor-pointer hover:bg-gray-50 transition-colors">
-          <label htmlFor="menu" className="flex flex-col items-center justify-center cursor-pointer">
-            <FileText className="h-6 w-6 text-gray-400" />
-            <span className="mt-2 text-sm text-gray-500">{menuFile ? menuFile.name : "Click to upload PDF menu"}</span>
-            <Input
-              id="menu"
-              name="menu"
-              type="file"
-              accept=".pdf"
-              onChange={handleFileChange}
-              className="hidden"
-              required={type === 'HAPPY_HOUR'}
-            />
-          </label>
-        </div>
-      </div>
-      
-      {type === 'BOGO' && (
-        <div>
-          <Label htmlFor="images">Upload Images (max 15)</Label>
-          <div className="border border-dashed border-gray-300 rounded-lg p-4 cursor-pointer hover:bg-gray-50 transition-colors">
-            <label htmlFor="images" className="flex flex-col items-center justify-center cursor-pointer">
-              <Upload className="h-6 w-6 text-gray-400" />
-              <span className="mt-2 text-sm text-gray-500">Click to upload images (JPEG/PNG)</span>
-              <Input
-                id="images"
-                name="images"
-                type="file"
-                accept="image/jpeg,image/png"
-                multiple
-                className="hidden"
-              />
-            </label>
-          </div>
-          <p className="text-xs text-gray-500 mt-1">Please upload interior pics, appetizers, main dishes & desserts</p>
-        </div>
+      ) : (
+        <HappyHourFormSection
+          formData={formData}
+          handleChange={handleChange}
+          handleDaysChange={handleDaysChange}
+          handleFileChange={handleFileChange}
+          menuFile={menuFile}
+        />
       )}
       
       <Button type="submit" className="w-full">
