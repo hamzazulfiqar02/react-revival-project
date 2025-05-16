@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -21,11 +20,11 @@ export function StaffForm({ onSubmit, initialData }: StaffFormProps) {
   
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData((prev: Partial<Staff>) => ({ ...prev, [name]: value }));
   };
   
   const handleRoleChange = (value: string) => {
-    setFormData((prev) => ({ ...prev, role: value as Staff['role'] }));
+    setFormData((prev: Partial<Staff>) => ({ ...prev, role: value as Staff['role'] }));
   };
   
   const handleSubmit = (e: React.FormEvent) => {

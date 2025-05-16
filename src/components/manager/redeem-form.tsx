@@ -25,7 +25,7 @@ export function RedeemForm({ onSubmit }: RedeemFormProps) {
   
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: name.includes('total') ? parseFloat(value) : value }));
+    setFormData((prev: Partial<Redemption>) => ({ ...prev, [name]: name.includes('total') ? parseFloat(value) : value }));
   };
   
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {

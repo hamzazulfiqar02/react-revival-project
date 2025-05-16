@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -29,11 +28,11 @@ export function RestaurantSettings({ restaurant, onUpdateRestaurant }: Restauran
   
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData((prev: Partial<Restaurant>) => ({ ...prev, [name]: value }));
   };
   
   const handleCuisineChange = (value: string) => {
-    setFormData((prev) => ({ ...prev, cuisineType: value }));
+    setFormData((prev: Partial<Restaurant>) => ({ ...prev, cuisineType: value }));
   };
   
   const handleLogoChange = (e: React.ChangeEvent<HTMLInputElement>) => {

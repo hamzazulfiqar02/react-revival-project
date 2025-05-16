@@ -126,7 +126,7 @@ export function DealManagement({ deals, onAddDeal, onUpdateDeal, onDeleteDeal }:
               <div className="flex items-center mt-2 text-sm text-gray-500">
                 <Calendar size={14} className="mr-1" />
                 <span>
-                  Valid on: {deal.days.map(day => day.charAt(0).toUpperCase() + day.slice(1)).join(', ')}
+                  Valid on: {deal.days.map((day: string) => day.charAt(0).toUpperCase() + day.slice(1)).join(', ')}
                 </span>
               </div>
               <div className="mt-2">
@@ -172,7 +172,7 @@ export function DealManagement({ deals, onAddDeal, onUpdateDeal, onDeleteDeal }:
               <div className="flex items-center mt-2 text-sm text-gray-500">
                 <Calendar size={14} className="mr-1" />
                 <span>
-                  Valid on: {deal.days.map(day => day.charAt(0).toUpperCase() + day.slice(1)).join(', ')}
+                  Valid on: {deal.days.map((day: string) => day.charAt(0).toUpperCase() + day.slice(1)).join(', ')}
                 </span>
               </div>
               <div className="flex items-center mt-1 text-sm text-gray-500">
