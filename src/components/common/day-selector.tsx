@@ -1,46 +1,46 @@
-
 import React from "react";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { Label } from "@/components/ui/label";
 
 interface DaySelectorProps {
   value: string[];
   onValueChange: (value: string[]) => void;
-  disabled?: boolean;
+  label?: string;
 }
 
-export function DaySelector({ value, onValueChange, disabled }: DaySelectorProps) {
-  const days = [
-    { value: "mon", label: "Mon" },
-    { value: "tue", label: "Tue" },
-    { value: "wed", label: "Wed" },
-    { value: "thu", label: "Thu" },
-    { value: "fri", label: "Fri" },
-    { value: "sat", label: "Sat" },
-    { value: "sun", label: "Sun" },
-  ];
-
+export const DaySelector: React.FC<DaySelectorProps> = ({ 
+  value, 
+  onValueChange,
+  label 
+}) => {
   const handleValueChange = (newValue: string[]) => {
-    onValueChange(newValue);
+    // Ensure we always keep Monday selected for BOGO deals
+    if (value.includes('mon') && !newValue.includes('mon') && newValue.length > 0) {
+      onValueChange(newValue);
+    } else if (newValue.length === 0 && value.includes('mon')) {
+      onValueChange(['mon']);
+    } else {
+      onValueChange(newValue);
+    }
   };
 
   return (
-    <ToggleGroup
-      type="multiple"
-      value={value}
-      onValueChange={handleValueChange}
-      className="flex flex-wrap gap-1 mt-1"
-      disabled={disabled}
-    >
-      {days.map((day) => (
-        <ToggleGroupItem
-          key={day.value}
-          value={day.value}
-          aria-label={`Toggle ${day.label}`}
-          className="data-[state=on]:bg-primary data-[state=on]:text-white"
-        >
-          {day.label}
-        </ToggleGroupItem>
-      ))}
-    </ToggleGroup>
+    <div className="space-y-2">
+      {label && <Label className="block text-sm font-medium text-gray-700">{label}</Label>}
+      <ToggleGroup 
+        type="multiple" 
+        value={value} 
+        onValueChange={handleValueChange}
+        className="flex flex-wrap gap-2"
+      >
+        <ToggleGroupItem value="mon" className="px-3 py-1 text-sm">Mon</ToggleGroupItem>
+        <ToggleGroupItem value="tue" className="px-3 py-1 text-sm">Tue</ToggleGroupItem>
+        <ToggleGroupItem value="wed" className="px-3 py-1 text-sm">Wed</ToggleGroupItem>
+        <ToggleGroupItem value="thu" className="px-3 py-1 text-sm">Thu</ToggleGroupItem>
+        <ToggleGroupItem value="fri" className="px-3 py-1 text-sm">Fri</ToggleGroupItem>
+        <ToggleGroupItem value="sat" className="px-3 py-1 text-sm">Sat</ToggleGroupItem>
+        <ToggleGroupItem value="sun" className="px-3 py-1 text-sm">Sun</ToggleGroupItem>
+      </ToggleGroup>
+    </div>
   );
-}
+};

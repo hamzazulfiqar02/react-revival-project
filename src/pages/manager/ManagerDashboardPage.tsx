@@ -29,11 +29,15 @@ export default function ManagerDashboardPage() {
     addRedemption
   } = useRestaurantData();
 
+  if (!restaurant) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <Routes>
       <Route path="/" element={
         <DashboardLayout type="manager">
-          <DashboardOverview restaurant={restaurant} deals={deals} redemptions={redemptions} />
+          <DashboardOverview restaurant={restaurant} deals={deals || []} redemptions={redemptions || []} />
         </DashboardLayout>
       } />
       
@@ -74,7 +78,7 @@ export default function ManagerDashboardPage() {
       <Route path="/settings" element={
         <DashboardLayout type="manager">
           <RestaurantSettings 
-            restaurant={restaurant!}
+            restaurant={restaurant}
             onUpdateRestaurant={updateRestaurant}
           />
         </DashboardLayout>
