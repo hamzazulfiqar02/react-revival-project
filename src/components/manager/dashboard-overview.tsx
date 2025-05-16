@@ -1,129 +1,97 @@
 
 import React from "react";
-import { Card } from "@/components/ui/card";
-import { 
-  ChartContainer, 
-  ChartTooltip, 
-  ChartTooltipContent 
-} from "@/components/ui/chart";
-import { 
-  BarChart as RechartsBarChart, 
-  Bar, 
-  XAxis, 
-  YAxis, 
-  CartesianGrid, 
-  Tooltip,
-  ResponsiveContainer
-} from "recharts";
-import { Restaurant, Deal, Redemption } from "@/types/restaurant";
+import { Restaurant, Deal, Redemption } from "../../types/restaurant";
+import { StatCard } from "../common/stat-card";
+import { Calendar, Clock, DollarSign, Users } from "lucide-react";
 
 interface DashboardOverviewProps {
-  restaurant?: Restaurant;
-  deals?: Deal[];
-  redemptions?: Redemption[];
+  restaurant: Restaurant;
+  deals: Deal[];
+  redemptions: Redemption[];
 }
 
-export const DashboardOverview: React.FC<DashboardOverviewProps> = ({ 
-  restaurant, 
-  deals, 
-  redemptions 
-}) => {
-  // Calculate statistics
-  const activeDeals = deals?.filter(deal => deal.isActive).length || 0;
-  const totalRedemptions = redemptions?.length || 0;
-  const revenue = redemptions?.reduce((acc, curr) => acc + curr.totalBill, 0) || 0;
+export function DashboardOverview({ restaurant, deals, redemptions }: DashboardOverviewProps) {
+  // Calculate some basic stats
+  const activeDeals = deals.filter(deal => deal.isActive).length;
+  const totalRedemptions = redemptions.length;
+  const todayRedemptions = redemptions.filter(
+    r => new Date(r.date).toDateString() === new Date().toDateString()
+  ).length;
   
-  // Chart data
-  const chartData = [
-    { name: "Monday", value: redemptions?.filter(r => new Date(r.date).getDay() === 1).length || 0 },
-    { name: "Tuesday", value: redemptions?.filter(r => new Date(r.date).getDay() === 2).length || 0 },
-    { name: "Wednesday", value: redemptions?.filter(r => new Date(r.date).getDay() === 3).length || 0 },
-    { name: "Thursday", value: redemptions?.filter(r => new Date(r.date).getDay() === 4).length || 0 },
-    { name: "Friday", value: redemptions?.filter(r => new Date(r.date).getDay() === 5).length || 0 },
-    { name: "Saturday", value: redemptions?.filter(r => new Date(r.date).getDay() === 6).length || 0 },
-    { name: "Sunday", value: redemptions?.filter(r => new Date(r.date).getDay() === 0).length || 0 },
-  ];
-  
+  const revenue = redemptions.reduce((total, r) => total + r.totalBill, 0);
+
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-semibold mb-6">Dashboard</h1>
+    <div>
+      <h1 className="text-xl font-semibold mb-4">Dashboard Overview</h1>
       
-      {/* Restaurant Info */}
-      <div className="bg-white rounded-lg shadow p-6 mb-6">
-        <h2 className="text-xl font-medium mb-4">Restaurant Information</h2>
-        {restaurant ? (
-          <div>
-            <div className="flex items-center mb-4">
-              <img 
-                src={restaurant.logo} 
-                alt={restaurant.name} 
-                className="w-16 h-16 object-cover rounded-lg mr-4"
-              />
-              <div>
-                <h3 className="text-lg font-semibold">{restaurant.name}</h3>
-                <p className="text-gray-600">{restaurant.cuisineType}</p>
-              </div>
-            </div>
-            <p className="text-gray-700">{restaurant.address}</p>
-            {restaurant.phoneNumber && (
-              <p className="text-gray-700">Phone: {restaurant.phoneNumber}</p>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <StatCard 
+          title="Active Deals" 
+          value={`${activeDeals}`}
+          icon={<Calendar className="h-5 w-5 text-blue-500" />}
+          description="Currently active deals"
+        />
+        
+        <StatCard 
+          title="Today's Redemptions" 
+          value={`${todayRedemptions}`}
+          icon={<Clock className="h-5 w-5 text-green-500" />}
+          description="Deals redeemed today"
+        />
+        
+        <StatCard 
+          title="Total Redemptions" 
+          value={`${totalRedemptions}`}
+          icon={<Users className="h-5 w-5 text-purple-500" />}
+          description="All-time redemptions"
+        />
+        
+        <StatCard 
+          title="Revenue" 
+          value={`$${revenue.toFixed(2)}`}
+          icon={<DollarSign className="h-5 w-5 text-yellow-500" />}
+          description="From redeemed deals"
+        />
+      </div>
+
+      <div className="bg-white rounded-lg shadow-sm p-4">
+        <h2 className="font-medium mb-4">Recent Redemptions</h2>
+        <table className="min-w-full">
+          <thead>
+            <tr>
+              <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">Date</th>
+              <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">Deal</th>
+              <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">Customers</th>
+              <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">Bill</th>
+            </tr>
+          </thead>
+          <tbody>
+            {redemptions.slice(0, 5).map((redemption) => (
+              <tr key={redemption.id}>
+                <td className="px-4 py-2 text-sm">
+                  {new Date(redemption.date).toLocaleDateString()}
+                </td>
+                <td className="px-4 py-2 text-sm">
+                  {redemption.dealId.startsWith('deal') ? 'BOGO Main Dish' : 'Happy Hour'}
+                </td>
+                <td className="px-4 py-2 text-sm">
+                  {redemption.claimedUsers} / {redemption.totalDiners}
+                </td>
+                <td className="px-4 py-2 text-sm">
+                  ${redemption.totalBill.toFixed(2)}
+                </td>
+              </tr>
+            ))}
+            {redemptions.length === 0 && (
+              <tr>
+                <td colSpan={4} className="px-4 py-4 text-center text-sm text-gray-500">
+                  No redemptions recorded yet.
+                </td>
+              </tr>
             )}
-          </div>
-        ) : (
-          <p>Loading restaurant information...</p>
-        )}
+          </tbody>
+        </table>
       </div>
-      
-      {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-        <Card className="p-6">
-          <h3 className="text-lg font-medium mb-2">Active Deals</h3>
-          <p className="text-3xl font-bold">{activeDeals}</p>
-        </Card>
-        
-        <Card className="p-6">
-          <h3 className="text-lg font-medium mb-2">Total Redemptions</h3>
-          <p className="text-3xl font-bold">{totalRedemptions}</p>
-        </Card>
-        
-        <Card className="p-6">
-          <h3 className="text-lg font-medium mb-2">Revenue</h3>
-          <p className="text-3xl font-bold">${revenue.toFixed(2)}</p>
-        </Card>
-      </div>
-      
-      {/* Redemptions Chart */}
-      <Card className="p-6">
-        <h3 className="text-lg font-medium mb-4">Redemptions by Day</h3>
-        <div className="h-64">
-          <ChartContainer
-            config={{
-              value: { label: "Value" }
-            }}
-          >
-            <ResponsiveContainer width="100%" height="100%">
-              <RechartsBarChart data={chartData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip
-                  content={({ active, payload }) => {
-                    if (active && payload && payload.length) {
-                      return (
-                        <div className="bg-white p-2 border border-gray-200 rounded-md shadow-sm">
-                          <p className="font-medium">{`${payload[0].payload.name}: ${payload[0].value}`}</p>
-                        </div>
-                      );
-                    }
-                    return null;
-                  }}
-                />
-                <Bar dataKey="value" fill="#8884d8" />
-              </RechartsBarChart>
-            </ResponsiveContainer>
-          </ChartContainer>
-        </div>
-      </Card>
     </div>
   );
-};
+}

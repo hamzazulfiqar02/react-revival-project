@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Restaurant, Deal, Staff, Redemption } from "@/types/restaurant";
+import { Restaurant, Deal, Staff, Redemption } from "../types/restaurant";
 
 // Mock API functions 
 const fetchRestaurant = async (id: string): Promise<Restaurant> => {

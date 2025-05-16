@@ -1,16 +1,16 @@
 
 import React from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import DashboardLayout from '@/components/layouts/dashboard-layout';
-import { useRestaurantData } from '@/hooks/useRestaurantData';
+import DashboardLayout from '../../components/layouts/dashboard-layout';
+import { useRestaurantData } from '../../hooks/useRestaurantData';
 
 // Import manager components
-import { DashboardOverview } from '@/components/manager/dashboard-overview';
-import { DealManagement } from '@/components/manager/deal-management';
-import { StaffManagement } from '@/components/manager/staff-management';
-import { RedeemReporting } from '@/components/manager/redeem-reporting';
-import { RedemptionHistory } from '@/components/manager/redemption-history';
-import { RestaurantSettings } from '@/components/manager/restaurant-settings';
+import { DashboardOverview } from '../../components/manager/dashboard-overview';
+import { DealManagement } from '../../components/manager/deal-management';
+import { StaffManagement } from '../../components/manager/staff-management';
+import { RedeemReporting } from '../../components/manager/redeem-reporting';
+import { RedemptionHistory } from '../../components/manager/redemption-history';
+import { RestaurantSettings } from '../../components/manager/restaurant-settings';
 
 export default function ManagerDashboardPage() {
   const navigate = useNavigate();
