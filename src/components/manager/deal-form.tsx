@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { DaySelector } from "@/components/common/day-selector";
+import { DaySelector } from "@/components/common/day-selector"; // The import is correct, but the file path may need to be adjusted
 import { Label } from "@/components/ui/label";
 import { Deal } from "@/types/restaurant";
 import { Calendar, Clock, FileText, Upload } from "lucide-react";
@@ -30,11 +30,11 @@ export function DealForm({ type, onSubmit, initialData }: DealFormProps) {
   
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData((prev: Partial<Deal>) => ({ ...prev, [name]: value }));
   };
   
   const handleDaysChange = (days: string[]) => {
-    setFormData((prev) => ({ ...prev, days }));
+    setFormData((prev: Partial<Deal>) => ({ ...prev, days }));
   };
   
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
