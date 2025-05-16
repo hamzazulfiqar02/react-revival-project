@@ -6,7 +6,7 @@ import type React from "react";
 import { ReactNode, useState } from "react";
 import { Field, ErrorMessage, useField } from "formik";
 import { Eye, EyeOff, Mail } from "lucide-react";
-import { KeyIcon } from "@/icons";
+import KeyIcon from "../../icons/KeyIcon";
 
 interface FormInputProps {
   label?: string | ReactNode;
