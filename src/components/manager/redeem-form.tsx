@@ -40,7 +40,7 @@ export function RedeemForm({ onSubmit }: RedeemFormProps) {
       setScannedUsers([...scannedUsers, mockUserID]);
       setFormData(prev => ({ 
         ...prev, 
-        claimedUsers: scannedUsers.length + 1
+        claimedUsers: (prev.claimedUsers || 0) + 1
       }));
       toast.success("User QR code scanned successfully!");
     } else {
@@ -68,11 +68,11 @@ export function RedeemForm({ onSubmit }: RedeemFormProps) {
       toast.error("Please enter a valid bill amount");
       return;
     }
-    if (formData.claimedUsers === 0) {
+    if (!formData.claimedUsers || formData.claimedUsers === 0) {
       toast.error("Please scan at least one customer QR code");
       return;
     }
-    if (!formData.totalDiners || formData.totalDiners < formData.claimedUsers) {
+    if (!formData.totalDiners || formData.totalDiners < (formData.claimedUsers || 0)) {
       toast.error("Total diners must be at least equal to claimed users");
       return;
     }

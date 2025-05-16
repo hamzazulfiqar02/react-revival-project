@@ -1,8 +1,8 @@
 
 import React from "react";
 import { RedeemForm } from "./redeem-form";
-import { Redemption } from "@/types/restaurant";
-import { toast } from "@/helpers/toast";
+import { Redemption } from "../../types/restaurant";
+import { toast } from "../../helpers/toast";
 
 interface RedeemReportingProps {
   onRedeemSubmit: (redemption: Partial<Redemption>) => void;

@@ -47,7 +47,7 @@ const fetchDeals = async (restaurantId: string): Promise<Deal[]> => {
       isActive: true,
       menuUrl: "/menu.pdf"
     }
-  ] as Deal[];
+  ];
 };
 
 const fetchStaff = async (restaurantId: string): Promise<Staff[]> => {
@@ -69,7 +69,7 @@ const fetchStaff = async (restaurantId: string): Promise<Staff[]> => {
       role: "STAFF",
       isActive: true
     }
-  ] as Staff[];
+  ];
 };
 
 const fetchRedemptions = async (restaurantId: string): Promise<Redemption[]> => {
@@ -95,7 +95,7 @@ const fetchRedemptions = async (restaurantId: string): Promise<Redemption[]> => 
       totalDiners: 2,
       confirmationCode: "5678"
     }
-  ] as Redemption[];
+  ];
 };
 
 export const useRestaurantData = (restaurantId: string = "restaurant1") => {
@@ -119,57 +119,132 @@ export const useRestaurantData = (restaurantId: string = "restaurant1") => {
     queryFn: () => fetchRedemptions(restaurantId),
   });
 
-  // Mock update functions
-  const updateRestaurant = (data: Partial<Restaurant>) => {
+  // Updated mock functions to ensure all required properties are set
+  const updateRestaurant = (data: Partial<Restaurant>): Promise<Restaurant> => {
     console.log("Updating restaurant:", data);
     // In a real app, this would make an API call
-    return Promise.resolve({ ...restaurant, ...data });
+    const updatedRestaurant: Restaurant = {
+      id: restaurant?.id || restaurantId,
+      name: data.name || restaurant?.name || "Unknown Restaurant",
+      logo: data.logo || restaurant?.logo || "/placeholder-logo.png",
+      cuisineType: data.cuisineType || restaurant?.cuisineType || "Other",
+      address: data.address || restaurant?.address || "No address provided",
+      phoneNumber: data.phoneNumber || restaurant?.phoneNumber || "",
+      email: data.email || restaurant?.email || "",
+      website: data.website || restaurant?.website || "",
+      reservationUrl: data.reservationUrl || restaurant?.reservationUrl || "",
+      isPremium: data.isPremium ?? restaurant?.isPremium ?? false
+    };
+    return Promise.resolve(updatedRestaurant);
   };
 
-  const addDeal = (deal: Partial<Deal>) => {
+  const addDeal = (deal: Partial<Deal>): Promise<Deal> => {
     console.log("Adding deal:", deal);
     // In a real app, this would make an API call
-    return Promise.resolve({ id: `deal-${Date.now()}`, restaurantId, ...deal });
+    const newDeal: Deal = {
+      id: `deal-${Date.now()}`,
+      restaurantId,
+      type: deal.type || "BOGO",
+      name: deal.name || "New Deal",
+      description: deal.description || "No description provided",
+      days: deal.days || ["mon"],
+      startDate: deal.startDate || new Date().toISOString().split('T')[0],
+      isActive: deal.isActive ?? true,
+      // Optional fields can be included if provided
+      endDate: deal.endDate,
+      startTime: deal.startTime,
+      endTime: deal.endTime,
+      menuUrl: deal.menuUrl
+    };
+    return Promise.resolve(newDeal);
   };
 
-  const updateDeal = (id: string, data: Partial<Deal>) => {
-    console.log("Updating deal:", id, data);
+  const updateDeal = (id: string, deal: Partial<Deal>): Promise<Deal> => {
+    console.log("Updating deal:", id, deal);
     // In a real app, this would make an API call
-    return Promise.resolve({ id, ...data });
+    const existingDeal = deals?.find(d => d.id === id);
+    if (!existingDeal) {
+      throw new Error(`Deal with id ${id} not found`);
+    }
+    
+    const updatedDeal: Deal = {
+      id,
+      restaurantId: deal.restaurantId || existingDeal.restaurantId,
+      type: deal.type || existingDeal.type,
+      name: deal.name || existingDeal.name,
+      description: deal.description || existingDeal.description,
+      days: deal.days || existingDeal.days,
+      startDate: deal.startDate || existingDeal.startDate,
+      isActive: deal.isActive ?? existingDeal.isActive,
+      // Optional fields can be included if provided
+      endDate: deal.endDate ?? existingDeal.endDate,
+      startTime: deal.startTime ?? existingDeal.startTime,
+      endTime: deal.endTime ?? existingDeal.endTime,
+      menuUrl: deal.menuUrl ?? existingDeal.menuUrl
+    };
+    return Promise.resolve(updatedDeal);
   };
 
-  const deleteDeal = (id: string) => {
+  const deleteDeal = (id: string): Promise<boolean> => {
     console.log("Deleting deal:", id);
     // In a real app, this would make an API call
     return Promise.resolve(true);
   };
 
-  const addStaff = (staff: Partial<Staff>) => {
+  const addStaff = (staff: Partial<Staff>): Promise<Staff> => {
     console.log("Adding staff member:", staff);
     // In a real app, this would make an API call
-    return Promise.resolve({ id: `staff-${Date.now()}`, restaurantId, ...staff });
+    const newStaff: Staff = {
+      id: `staff-${Date.now()}`,
+      restaurantId,
+      name: staff.name || "New Staff",
+      email: staff.email || `staff-${Date.now()}@example.com`,
+      role: staff.role || "STAFF",
+      isActive: staff.isActive ?? true
+    };
+    return Promise.resolve(newStaff);
   };
 
-  const updateStaff = (id: string, data: Partial<Staff>) => {
+  const updateStaff = (id: string, data: Partial<Staff>): Promise<Staff> => {
     console.log("Updating staff member:", id, data);
     // In a real app, this would make an API call
-    return Promise.resolve({ id, ...data });
+    const existingStaff = staff?.find(s => s.id === id);
+    if (!existingStaff) {
+      throw new Error(`Staff member with id ${id} not found`);
+    }
+    
+    const updatedStaff: Staff = {
+      id,
+      restaurantId: data.restaurantId || existingStaff.restaurantId,
+      name: data.name || existingStaff.name,
+      email: data.email || existingStaff.email,
+      role: data.role || existingStaff.role,
+      isActive: data.isActive ?? existingStaff.isActive
+    };
+    return Promise.resolve(updatedStaff);
   };
 
-  const deleteStaff = (id: string) => {
+  const deleteStaff = (id: string): Promise<boolean> => {
     console.log("Deleting staff member:", id);
     // In a real app, this would make an API call
     return Promise.resolve(true);
   };
 
-  const addRedemption = (redemption: Partial<Redemption>) => {
+  const addRedemption = (redemption: Partial<Redemption>): Promise<Redemption> => {
     console.log("Adding redemption:", redemption);
     // In a real app, this would make an API call
-    return Promise.resolve({ 
-      id: `redemption-${Date.now()}`, 
+    const newRedemption: Redemption = {
+      id: `redemption-${Date.now()}`,
       restaurantId,
-      ...redemption
-    });
+      dealId: redemption.dealId || "deal1",
+      date: redemption.date || new Date().toISOString(),
+      totalBill: redemption.totalBill || 0,
+      claimedUsers: redemption.claimedUsers || 0,
+      totalDiners: redemption.totalDiners || 0,
+      confirmationCode: redemption.confirmationCode || "0000",
+      receiptImage: redemption.receiptImage
+    };
+    return Promise.resolve(newRedemption);
   };
 
   return {

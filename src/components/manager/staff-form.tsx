@@ -1,10 +1,11 @@
 
 import React, { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Staff } from "@/types/restaurant";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
+import { Label } from "../ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
+import { Switch } from "../ui/switch";
+import { Staff } from "../../types/restaurant";
 
 interface StaffFormProps {
   onSubmit: (staff: Partial<Staff>) => void;
@@ -16,16 +17,20 @@ export function StaffForm({ onSubmit, initialData }: StaffFormProps) {
     name: "",
     email: "",
     role: "STAFF",
-    isActive: true,
+    isActive: true
   });
   
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData((prev: Partial<Staff>) => ({ ...prev, [name]: value }));
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
   
-  const handleRoleChange = (value: string) => {
-    setFormData((prev: Partial<Staff>) => ({ ...prev, role: value as Staff['role'] }));
+  const handleRoleChange = (value: "MANAGER" | "STAFF") => {
+    setFormData(prev => ({ ...prev, role: value }));
+  };
+  
+  const handleActiveChange = (checked: boolean) => {
+    setFormData(prev => ({ ...prev, isActive: checked }));
   };
   
   const handleSubmit = (e: React.FormEvent) => {
@@ -36,13 +41,12 @@ export function StaffForm({ onSubmit, initialData }: StaffFormProps) {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
-        <Label htmlFor="name">Staff Name</Label>
+        <Label htmlFor="name">Full Name</Label>
         <Input
           id="name"
           name="name"
-          value={formData.name}
+          value={formData.name || ''}
           onChange={handleChange}
-          placeholder="Enter staff name"
           required
         />
       </div>
@@ -53,9 +57,8 @@ export function StaffForm({ onSubmit, initialData }: StaffFormProps) {
           id="email"
           name="email"
           type="email"
-          value={formData.email}
+          value={formData.email || ''}
           onChange={handleChange}
-          placeholder="Enter email address"
           required
         />
       </div>
@@ -63,7 +66,7 @@ export function StaffForm({ onSubmit, initialData }: StaffFormProps) {
       <div>
         <Label htmlFor="role">Role</Label>
         <Select 
-          onValueChange={handleRoleChange} 
+          onValueChange={(value) => handleRoleChange(value as "MANAGER" | "STAFF")} 
           defaultValue={formData.role}
         >
           <SelectTrigger className="w-full">
@@ -76,8 +79,17 @@ export function StaffForm({ onSubmit, initialData }: StaffFormProps) {
         </Select>
       </div>
       
+      <div className="flex items-center justify-between">
+        <Label htmlFor="isActive" className="flex-grow">Active Status</Label>
+        <Switch 
+          id="isActive"
+          checked={formData.isActive}
+          onCheckedChange={handleActiveChange}
+        />
+      </div>
+      
       <Button type="submit" className="w-full">
-        {initialData ? "Update Staff" : "Add Staff"}
+        {initialData ? 'Update Staff Member' : 'Add Staff Member'}
       </Button>
     </form>
   );

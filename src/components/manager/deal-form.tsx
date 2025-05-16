@@ -1,11 +1,11 @@
 
 import React, { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { DaySelector } from "@/components/common/day-selector";
-import { Label } from "@/components/ui/label";
-import { Deal } from "@/types/restaurant";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
+import { Textarea } from "../ui/textarea";
+import { DaySelector } from "../common/day-selector";
+import { Label } from "../ui/label";
+import { Deal } from "../../types/restaurant";
 import { Calendar, Clock, FileText, Upload } from "lucide-react";
 
 interface DealFormProps {

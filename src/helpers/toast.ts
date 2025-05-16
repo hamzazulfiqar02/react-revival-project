@@ -1,7 +1,7 @@
 
 import { toast as reactToast } from "react-toastify";
 
-// Toast object with methods - make sure it's properly exported
+// Toast object with methods
 export const toast = {
   success: (message: string) => {
     return reactToast.success(message || "Successful");

@@ -5,10 +5,11 @@ interface StatCardProps {
   icon: ReactNode;
   title: string;
   value: string;
+  description?: string;
   additionalInfo?: ReactNode;
 }
 
-export function StatCard({ icon, title, value, additionalInfo }: StatCardProps) {
+export function StatCard({ icon, title, value, description, additionalInfo }: StatCardProps) {
   return (
     <div className="w-full bg-white rounded-lg p-4 shadow-sm border border-primary-lightest">
       <div className="flex items-start justify-between">
@@ -19,6 +20,7 @@ export function StatCard({ icon, title, value, additionalInfo }: StatCardProps) 
           <div>
             <div className="text-sm font-semibold">{title}</div>
             <div className="text-sm font-normal mt-1 text-gray-600">{value}</div>
+            {description && <div className="text-xs text-gray-500 mt-1">{description}</div>}
           </div>
         </div>
         {additionalInfo && <div className="mt-1">{additionalInfo}</div>}
@@ -26,5 +28,3 @@ export function StatCard({ icon, title, value, additionalInfo }: StatCardProps) 
     </div>
   );
 }
-
-export default StatCard;
