@@ -23,9 +23,21 @@ import DiscountPage from "./pages/discount/DiscountPage"
 import ExplorePage from "./pages/explore/ExplorePage"
 import AccountPage from "./pages/account/AccountPage"
 import StaffBoardPage from "./pages/staff/StaffBoardPage"
-import ManagerDashboardPage from "./pages/manager/ManagerDashboardPage"
-import AdminDashboardPage from "./pages/admin/AdminDashboardPage"
+import Index from "./pages/Index"
 import NotFound from "./pages/NotFound"
+
+// Manager Pages
+import ManagerLoginPage from "./pages/manager/ManagerLoginPage"
+import ManagerSignupPage from "./pages/manager/ManagerSignupPage"
+import ManagerDashboardOverview from "./pages/manager/ManagerDashboardOverview"
+import ManagerDealManagement from "./pages/manager/ManagerDealManagement"
+import ManagerStaffManagement from "./pages/manager/ManagerStaffManagement"
+import ManagerReportRedemption from "./pages/manager/ManagerReportRedemption"
+import ManagerRedemptionHistory from "./pages/manager/ManagerRedemptionHistory"
+import ManagerSettings from "./pages/manager/ManagerSettings"
+
+// Admin Pages
+import AdminDashboardPage from "./pages/admin/AdminDashboardPage"
 
 const App = () => {
   // Move the QueryClient instantiation inside the component
@@ -42,6 +54,7 @@ const App = () => {
               <ToastContainer autoClose={3000} />
               <Routes>
                 <Route path="/" element={<HomePage />} />
+                <Route path="/index" element={<Index />} />
                 
                 {/* Authentication Routes */}
                 <Route path="/login" element={<LoginPage />} />
@@ -60,7 +73,16 @@ const App = () => {
                 
                 {/* Staff & Manager Routes */}
                 <Route path="/staff/board" element={<StaffBoardPage />} />
-                <Route path="/manager/*" element={<ManagerDashboardPage />} />
+                
+                {/* Manager Routes */}
+                <Route path="/manager/login" element={<ManagerLoginPage />} />
+                <Route path="/manager/signup" element={<ManagerSignupPage />} />
+                <Route path="/manager/overview" element={<ManagerDashboardOverview />} />
+                <Route path="/manager/deal-management" element={<ManagerDealManagement />} />
+                <Route path="/manager/staff-management" element={<ManagerStaffManagement />} />
+                <Route path="/manager/report-redemption" element={<ManagerReportRedemption />} />
+                <Route path="/manager/redemption-history" element={<ManagerRedemptionHistory />} />
+                <Route path="/manager/settings" element={<ManagerSettings />} />
                 
                 {/* Admin Routes */}
                 <Route path="/admin/*" element={<AdminDashboardPage />} />
