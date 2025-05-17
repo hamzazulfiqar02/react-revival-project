@@ -76,7 +76,7 @@ export function AccountSetupStep({ onHandleNext }: AccountSetupStepProps) {
                 </button>
               </div>
               {errors.password && touched.password && (
-                <div className="text-red-500 text-xs mt-1">{errors.password}</div>
+                <div className="text-red-500 text-xs mt-1">{String(errors.password)}</div>
               )}
             </div>
 
@@ -107,7 +107,7 @@ export function AccountSetupStep({ onHandleNext }: AccountSetupStepProps) {
                 </button>
               </div>
               {errors.confirmPassword && touched.confirmPassword && (
-                <div className="text-red-500 text-xs mt-1">{errors.confirmPassword}</div>
+                <div className="text-red-500 text-xs mt-1">{String(errors.confirmPassword)}</div>
               )}
             </div>
           </div>
@@ -133,7 +133,7 @@ export function AccountSetupStep({ onHandleNext }: AccountSetupStepProps) {
               />
             </div>
             {errors.pin && touched.pin && (
-              <div className="text-red-500 text-xs mt-1">{errors.pin}</div>
+              <div className="text-red-500 text-xs mt-1">{String(errors.pin)}</div>
             )}
           </div>
 

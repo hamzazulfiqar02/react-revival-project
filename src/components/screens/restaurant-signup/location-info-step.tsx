@@ -56,7 +56,7 @@ export function LocationInfoStep({ onHandleNext }: LocationInfoStepProps) {
               />
             </div>
             {errors.address && touched.address && (
-              <div className="text-red-500 text-xs mt-1">{errors.address}</div>
+              <div className="text-red-500 text-xs mt-1">{String(errors.address)}</div>
             )}
           </div>
 

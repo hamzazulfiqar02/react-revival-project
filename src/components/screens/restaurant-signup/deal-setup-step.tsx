@@ -107,7 +107,7 @@ export function DealSetupStep({ onHandleNext }: DealSetupStepProps) {
                 </div>
               )}
               {errors.dealType && touched.dealType && (
-                <div className="text-red-500 text-xs mt-1">{errors.dealType}</div>
+                <div className="text-red-500 text-xs mt-1">{String(errors.dealType)}</div>
               )}
             </div>
           </div>
@@ -149,7 +149,7 @@ export function DealSetupStep({ onHandleNext }: DealSetupStepProps) {
                 })}
               </div>
               {errors.selectedDays && touched.selectedDays && (
-                <div className="text-red-500 text-xs mt-1">{errors.selectedDays as string}</div>
+                <div className="text-red-500 text-xs mt-1">{String(errors.selectedDays)}</div>
               )}
             </div>
           )}
@@ -179,7 +179,7 @@ export function DealSetupStep({ onHandleNext }: DealSetupStepProps) {
                     />
                   </div>
                   {errors.startTime && touched.startTime && (
-                    <div className="text-red-500 text-xs mt-1">{errors.startTime}</div>
+                    <div className="text-red-500 text-xs mt-1">{String(errors.startTime)}</div>
                   )}
                 </div>
 
@@ -204,7 +204,7 @@ export function DealSetupStep({ onHandleNext }: DealSetupStepProps) {
                     />
                   </div>
                   {errors.endTime && touched.endTime && (
-                    <div className="text-red-500 text-xs mt-1">{errors.endTime}</div>
+                    <div className="text-red-500 text-xs mt-1">{String(errors.endTime)}</div>
                   )}
                 </div>
               </div>
@@ -226,7 +226,7 @@ export function DealSetupStep({ onHandleNext }: DealSetupStepProps) {
                   value={values.happyHourName}
                 />
                 {errors.happyHourName && touched.happyHourName && (
-                  <div className="text-red-500 text-xs mt-1">{errors.happyHourName}</div>
+                  <div className="text-red-500 text-xs mt-1">{String(errors.happyHourName)}</div>
                 )}
               </div>
             </>
