@@ -9,7 +9,7 @@ import { Staff } from "../../manager/types";
 
 interface StaffMemberModalProps {
   open: boolean;
-  onClose: () => void;
+  onOpenChange: (open: boolean) => void;
   onSave: (data: Partial<Staff>) => void;
   initialData?: Staff;
   title?: string;
@@ -17,7 +17,7 @@ interface StaffMemberModalProps {
 
 export function StaffMemberModal({ 
   open, 
-  onClose, 
+  onOpenChange, 
   onSave, 
   initialData, 
   title = "Add Staff Member" 
@@ -41,11 +41,11 @@ export function StaffMemberModal({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSave(formData);
-    onClose();
+    onOpenChange(false);
   };
 
   return (
-    <Dialog open={open} onOpenChange={onClose}>
+    <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
@@ -111,7 +111,7 @@ export function StaffMemberModal({
           </div>
           
           <DialogFooter>
-            <Button type="button" variant="outline" onClick={onClose}>
+            <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
               Cancel
             </Button>
             <Button type="submit">Save</Button>

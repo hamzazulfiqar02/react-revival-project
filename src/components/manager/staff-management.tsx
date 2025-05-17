@@ -90,18 +90,18 @@ export function StaffManagement({ staff, onAddStaff, onUpdateStaff, onDeleteStaf
       
       {isAddModalOpen && (
         <StaffMemberModal 
-          isOpen={isAddModalOpen}
-          onClose={() => setIsAddModalOpen(false)}
-          onSubmit={handleAddStaff}
+          open={isAddModalOpen}
+          onOpenChange={() => setIsAddModalOpen(false)}
+          onSave={handleAddStaff}
           title="Add Staff Member"
         />
       )}
       
       {editingStaff && (
         <StaffMemberModal
-          isOpen={!!editingStaff}
-          onClose={() => setEditingStaff(null)}
-          onSubmit={(data) => handleUpdateStaff(editingStaff.id, data)}
+          open={!!editingStaff}
+          onOpenChange={() => setEditingStaff(null)}
+          onSave={(data: Partial<Staff>) => handleUpdateStaff(editingStaff.id, data)}
           initialData={editingStaff}
           title="Edit Staff Member"
         />

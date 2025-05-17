@@ -48,12 +48,28 @@ export default function ManagerDashboardPage() {
     isPremium: restaurant.isPremium
   };
 
-  // Wrapper functions to ensure correct typing
+  // Create wrapper functions to ensure correct typing
+  const handleUpdateRestaurant = (data: Partial<Restaurant>): Promise<Restaurant> => {
+    return updateRestaurant(data).then((updatedRestaurant) => {
+      return {
+        id: updatedRestaurant.id,
+        name: updatedRestaurant.name,
+        logo: updatedRestaurant.logo,
+        cuisineType: updatedRestaurant.cuisineType,
+        address: updatedRestaurant.address,
+        phoneNumber: updatedRestaurant.phoneNumber || '',
+        email: updatedRestaurant.email || '',
+        website: updatedRestaurant.website || '',
+        reservationUrl: updatedRestaurant.reservationUrl || '',
+        isPremium: updatedRestaurant.isPremium
+      };
+    });
+  };
+  
   const handleAddDeal = (deal: Partial<Deal>) => addDeal(deal as any);
   const handleUpdateDeal = (id: string, deal: Partial<Deal>) => updateDeal(id, deal as any);
   const handleAddStaff = (staff: Partial<Staff>) => addStaff(staff as any);
   const handleUpdateStaff = (id: string, staff: Partial<Staff>) => updateStaff(id, staff as any);
-  const handleUpdateRestaurant = (data: Partial<Restaurant>) => updateRestaurant(data as any);
   const handleAddRedemption = (data: Partial<Redemption>) => addRedemption(data as any);
 
   return (
