@@ -1,7 +1,8 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from "../ui/button";
 import { Staff } from "../../types/restaurant";
+import { StaffMemberModal } from '../screens/manager/staff-member-modal';
 
 interface StaffManagementProps {
   staff: Staff[];
@@ -11,13 +12,40 @@ interface StaffManagementProps {
 }
 
 export function StaffManagement({ staff, onAddStaff, onUpdateStaff, onDeleteStaff }: StaffManagementProps) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingStaff, setEditingStaff] = useState<Staff | null>(null);
+  
+  const handleOpenAddModal = () => {
+    setEditingStaff(null);
+    setIsModalOpen(true);
+  };
+  
+  const handleOpenEditModal = (staffMember: Staff) => {
+    setEditingStaff(staffMember);
+    setIsModalOpen(true);
+  };
+  
+  const handleSaveStaff = async (data: Partial<Staff>) => {
+    if (editingStaff) {
+      await onUpdateStaff(editingStaff.id, data);
+    } else {
+      await onAddStaff(data);
+    }
+  };
+  
+  const handleDeleteStaff = async (id: string) => {
+    if (confirm('Are you sure you want to delete this staff member?')) {
+      await onDeleteStaff(id);
+    }
+  };
+  
   return (
     <div>
       <h1 className="text-xl font-semibold mb-4">Staff Management</h1>
       
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-lg font-medium">Restaurant Staff</h2>
-        <Button>Add Staff Member</Button>
+        <Button onClick={handleOpenAddModal}>Add Staff Member</Button>
       </div>
       
       <div className="bg-white rounded-lg shadow-sm overflow-hidden">
@@ -48,8 +76,20 @@ export function StaffManagement({ staff, onAddStaff, onUpdateStaff, onDeleteStaf
                 </td>
                 <td className="px-4 py-3 text-sm">
                   <div className="flex space-x-2">
-                    <Button variant="outline" size="sm">Edit</Button>
-                    <Button variant="destructive" size="sm">Delete</Button>
+                    <Button 
+                      variant="outline" 
+                      size="sm"
+                      onClick={() => handleOpenEditModal(staffMember)}
+                    >
+                      Edit
+                    </Button>
+                    <Button 
+                      variant="destructive" 
+                      size="sm"
+                      onClick={() => handleDeleteStaff(staffMember.id)}
+                    >
+                      Delete
+                    </Button>
                   </div>
                 </td>
               </tr>
@@ -64,6 +104,14 @@ export function StaffManagement({ staff, onAddStaff, onUpdateStaff, onDeleteStaf
           </tbody>
         </table>
       </div>
+      
+      <StaffMemberModal
+        open={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSave={handleSaveStaff}
+        initialData={editingStaff || undefined}
+        title={editingStaff ? 'Edit Staff Member' : 'Add Staff Member'}
+      />
     </div>
   );
 }

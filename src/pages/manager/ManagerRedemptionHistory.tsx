@@ -1,8 +1,8 @@
 
-import React from 'react'
-import DashboardLayout from '@/components/layouts/dashboard-layout'
-import { RedemptionHistory } from '@/components/manager/redemption-history'
-import { Redemption } from '@/types/restaurant'
+import React from 'react';
+import DashboardLayout from '@/components/layouts/dashboard-layout';
+import { RedemptionHistory } from '@/components/manager/redemption-history';
+import { Redemption } from '@/types/restaurant';
 
 export default function ManagerRedemptionHistoryPage() {
   // Mock redemptions data with proper types
@@ -27,11 +27,11 @@ export default function ManagerRedemptionHistoryPage() {
       totalDiners: 2,
       confirmationCode: "5678"
     }
-  ]
+  ];
   
   return (
     <DashboardLayout type="manager">
       <RedemptionHistory redemptions={mockRedemptions} />
     </DashboardLayout>
-  )
+  );
 }

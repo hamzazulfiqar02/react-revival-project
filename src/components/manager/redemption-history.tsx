@@ -1,14 +1,14 @@
 
 import React from 'react';
 import { Redemption } from "../../types/restaurant";
-import { RedemptionTable } from '../screens/manager/redemption-table';
+import { DataTable } from "../screens/manager/data-table";
 
 interface RedemptionHistoryProps {
   redemptions: Redemption[];
 }
 
 export function RedemptionHistory({ redemptions }: RedemptionHistoryProps) {
-  // Transform redemptions data to the format expected by RedemptionTable
+  // Transform redemptions data to the format expected by DataTable
   const redemptionTableData = redemptions.map(r => ({
     dealId: r.dealId,
     claimedUsers: r.claimedUsers,
@@ -16,6 +16,30 @@ export function RedemptionHistory({ redemptions }: RedemptionHistoryProps) {
     totalBill: r.totalBill,
     dateTime: new Date(r.date).toLocaleString()
   }));
+
+  const columns = [
+    {
+      key: "dateTime",
+      header: "Date & Time"
+    },
+    {
+      key: "dealId",
+      header: "Deal ID"
+    },
+    {
+      key: "claimedUsers",
+      header: "Claimed Users"
+    },
+    {
+      key: "totalDinners",
+      header: "Total Diners"
+    },
+    {
+      key: "totalBill",
+      header: "Total Bill Amount",
+      render: (value: number) => `$${value.toFixed(2)}`
+    }
+  ];
 
   return (
     <div>
@@ -42,7 +66,7 @@ export function RedemptionHistory({ redemptions }: RedemptionHistoryProps) {
         </div>
       </div>
       
-      <RedemptionTable data={redemptionTableData} />
+      <DataTable columns={columns} data={redemptionTableData} />
     </div>
   );
 }

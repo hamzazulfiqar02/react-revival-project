@@ -13,9 +13,14 @@ export function RedeemReporting({ onRedeemSubmit }: RedeemReportingProps) {
   const [totalBill, setTotalBill] = useState('');
   const [claimedUsers, setClaimedUsers] = useState('1');
   const [totalDiners, setTotalDiners] = useState('2');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (isSubmitting) return;
+    
+    setIsSubmitting(true);
     
     try {
       await onRedeemSubmit({
@@ -36,6 +41,8 @@ export function RedeemReporting({ onRedeemSubmit }: RedeemReportingProps) {
       alert('Redemption reported successfully!');
     } catch (error) {
       alert('Error reporting redemption');
+    } finally {
+      setIsSubmitting(false);
     }
   };
   
@@ -103,7 +110,9 @@ export function RedeemReporting({ onRedeemSubmit }: RedeemReportingProps) {
             </div>
           </div>
           
-          <Button type="submit" className="w-full">Report Redemption</Button>
+          <Button type="submit" disabled={isSubmitting} className="w-full">
+            {isSubmitting ? 'Submitting...' : 'Report Redemption'}
+          </Button>
         </form>
       </div>
     </div>

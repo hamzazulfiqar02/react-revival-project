@@ -1,8 +1,8 @@
 
-import React from 'react'
-import DashboardLayout from '@/components/layouts/dashboard-layout'
-import { RedeemReporting } from '@/components/manager/redeem-reporting'
-import { Redemption } from '@/types/restaurant'
+import React from 'react';
+import DashboardLayout from '@/components/layouts/dashboard-layout';
+import { RedeemReporting } from '@/components/manager/redeem-reporting';
+import { Redemption } from '@/types/restaurant';
 
 export default function ManagerReportRedemptionPage() {
   // Mock function with proper type annotation
@@ -24,5 +24,5 @@ export default function ManagerReportRedemptionPage() {
     <DashboardLayout type="manager">
       <RedeemReporting onRedeemSubmit={handleRedeemSubmit} />
     </DashboardLayout>
-  )
+  );
 }

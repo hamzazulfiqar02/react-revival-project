@@ -1,8 +1,8 @@
 
-import React from 'react'
-import DashboardLayout from '@/components/layouts/dashboard-layout'
-import { StaffManagement } from '@/components/manager/staff-management'
-import { Staff } from '@/types/restaurant'
+import React from 'react';
+import DashboardLayout from '@/components/layouts/dashboard-layout';
+import { StaffManagement } from '@/components/manager/staff-management';
+import { Staff } from '@/types/restaurant';
 
 export default function ManagerStaffManagementPage() {
   // Mock staff data with proper types
@@ -23,7 +23,7 @@ export default function ManagerStaffManagementPage() {
       role: "STAFF",
       isActive: true
     }
-  ]
+  ];
   
   // Mock functions with proper type annotations
   const handleAddStaff = (staff: Partial<Staff>): Promise<Staff> => {
@@ -61,5 +61,5 @@ export default function ManagerStaffManagementPage() {
         onDeleteStaff={handleDeleteStaff}
       />
     </DashboardLayout>
-  )
+  );
 }

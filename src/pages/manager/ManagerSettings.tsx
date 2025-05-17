@@ -1,8 +1,8 @@
 
-import React from 'react'
-import DashboardLayout from '@/components/layouts/dashboard-layout'
-import { RestaurantSettings } from '@/components/manager/restaurant-settings'
-import { Restaurant } from '@/types/restaurant'
+import React from 'react';
+import DashboardLayout from '@/components/layouts/dashboard-layout';
+import { RestaurantSettings } from '@/components/manager/restaurant-settings';
+import { Restaurant } from '@/types/restaurant';
 
 export default function ManagerSettingsPage() {
   // Mock restaurant data
@@ -35,5 +35,5 @@ export default function ManagerSettingsPage() {
         onUpdateRestaurant={handleUpdateRestaurant}
       />
     </DashboardLayout>
-  )
+  );
 }

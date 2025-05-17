@@ -5,12 +5,13 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Staff } from "@/types/restaurant";
 
 interface StaffMemberModalProps {
   open: boolean;
   onClose: () => void;
-  onSave: (data: any) => void;
-  initialData?: any;
+  onSave: (data: Partial<Staff>) => void;
+  initialData?: Staff;
   title?: string;
 }
 
@@ -18,14 +19,14 @@ export function StaffMemberModal({
   open, 
   onClose, 
   onSave, 
-  initialData = {}, 
+  initialData, 
   title = "Add Staff Member" 
 }: StaffMemberModalProps) {
-  const [formData, setFormData] = React.useState({
-    name: initialData.name || "",
-    email: initialData.email || "",
-    role: initialData.role || "STAFF",
-    isActive: initialData.isActive !== undefined ? initialData.isActive : true
+  const [formData, setFormData] = React.useState<Partial<Staff>>({
+    name: initialData?.name || "",
+    email: initialData?.email || "",
+    role: initialData?.role || "STAFF",
+    isActive: initialData?.isActive !== undefined ? initialData.isActive : true
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,7 +34,7 @@ export function StaffMemberModal({
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleRoleChange = (value: string) => {
+  const handleRoleChange = (value: "MANAGER" | "STAFF") => {
     setFormData(prev => ({ ...prev, role: value }));
   };
 
@@ -77,7 +78,7 @@ export function StaffMemberModal({
             <Label>Role</Label>
             <RadioGroup 
               value={formData.role} 
-              onValueChange={handleRoleChange}
+              onValueChange={(value: "MANAGER" | "STAFF") => handleRoleChange(value)}
               className="flex space-x-4"
             >
               <div className="flex items-center space-x-2">

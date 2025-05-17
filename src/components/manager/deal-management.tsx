@@ -1,7 +1,8 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from "../ui/button";
 import { Deal } from "../../types/restaurant";
+import { Dialog } from "../ui/dialog";
 
 interface DealManagementProps {
   deals: Deal[];
@@ -11,13 +12,15 @@ interface DealManagementProps {
 }
 
 export function DealManagement({ deals, onAddDeal, onUpdateDeal, onDeleteDeal }: DealManagementProps) {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  
   return (
     <div>
       <h1 className="text-xl font-semibold mb-4">Deal Management</h1>
       
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-lg font-medium">Restaurant Deals</h2>
-        <Button>Add New Deal</Button>
+        <Button onClick={() => setIsDialogOpen(true)}>Add New Deal</Button>
       </div>
       
       <div className="bg-white rounded-lg shadow-sm overflow-hidden">
@@ -48,8 +51,18 @@ export function DealManagement({ deals, onAddDeal, onUpdateDeal, onDeleteDeal }:
                 </td>
                 <td className="px-4 py-3 text-sm">
                   <div className="flex space-x-2">
-                    <Button variant="outline" size="sm">Edit</Button>
-                    <Button variant="destructive" size="sm">Delete</Button>
+                    <Button variant="outline" size="sm" onClick={() => {}}>Edit</Button>
+                    <Button 
+                      variant="destructive" 
+                      size="sm"
+                      onClick={async () => {
+                        if (confirm('Are you sure you want to delete this deal?')) {
+                          await onDeleteDeal(deal.id);
+                        }
+                      }}
+                    >
+                      Delete
+                    </Button>
                   </div>
                 </td>
               </tr>

@@ -1,11 +1,12 @@
 
-import React from 'react'
-import DashboardLayout from '@/components/layouts/dashboard-layout'
-import { DashboardOverview } from '@/components/manager/dashboard-overview'
+import React from 'react';
+import DashboardLayout from '@/components/layouts/dashboard-layout';
+import { DashboardOverview } from '@/components/manager/dashboard-overview';
+import { Redemption, Restaurant, Deal } from '@/types/restaurant';
 
 export default function ManagerDashboardOverview() {
   // Mock restaurant data
-  const mockRestaurant = {
+  const mockRestaurant: Restaurant = {
     id: "restaurant1",
     name: "Sample Restaurant",
     logo: "/placeholder-logo.png",
@@ -19,11 +20,11 @@ export default function ManagerDashboardOverview() {
   };
   
   // Mock deals data
-  const mockDeals = [
+  const mockDeals: Deal[] = [
     {
       id: "deal1",
       restaurantId: "restaurant1",
-      type: "BOGO" as const,
+      type: "BOGO",
       name: "BOGO Main Dish",
       description: "Buy one main dish, get one free",
       days: ["mon"],
@@ -33,7 +34,7 @@ export default function ManagerDashboardOverview() {
     {
       id: "deal2",
       restaurantId: "restaurant1",
-      type: "HAPPY_HOUR" as const,
+      type: "HAPPY_HOUR",
       name: "Happy Hour Special",
       description: "50% off selected appetizers",
       days: ["mon", "tue", "wed", "thu", "fri"],
@@ -47,7 +48,7 @@ export default function ManagerDashboardOverview() {
   ];
   
   // Mock redemptions data
-  const mockRedemptions = [
+  const mockRedemptions: Redemption[] = [
     {
       id: "redemption1",
       dealId: "deal1",
@@ -78,5 +79,5 @@ export default function ManagerDashboardOverview() {
         redemptions={mockRedemptions}
       />
     </DashboardLayout>
-  )
+  );
 }

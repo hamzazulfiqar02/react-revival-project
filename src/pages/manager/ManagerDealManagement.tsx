@@ -1,8 +1,8 @@
 
-import React from 'react'
-import DashboardLayout from '@/components/layouts/dashboard-layout'
-import { DealManagement } from '@/components/manager/deal-management'
-import { Deal } from '@/types/restaurant'
+import React from 'react';
+import DashboardLayout from '@/components/layouts/dashboard-layout';
+import { DealManagement } from '@/components/manager/deal-management';
+import { Deal } from '@/types/restaurant';
 
 export default function ManagerDealManagementPage() {
   // Mock deals data
@@ -29,9 +29,9 @@ export default function ManagerDealManagementPage() {
       endTime: "19:00",
       isActive: true
     }
-  ]
+  ];
   
-  // Mock functions with proper type annotations
+  // Mock functions with type annotations
   const handleAddDeal = (deal: Partial<Deal>): Promise<Deal> => {
     console.log('Adding deal:', deal);
     return Promise.resolve({ 
@@ -74,5 +74,5 @@ export default function ManagerDealManagementPage() {
         onDeleteDeal={handleDeleteDeal}
       />
     </DashboardLayout>
-  )
+  );
 }

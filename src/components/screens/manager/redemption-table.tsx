@@ -17,6 +17,11 @@ interface RedemptionTableProps {
 export function RedemptionTable({ data }: RedemptionTableProps) {
   const columns = [
     {
+      key: "dateTime",
+      header: "Date & Time",
+      width: "20%",
+    },
+    {
       key: "dealId",
       header: "Deal ID",
     },
@@ -32,11 +37,6 @@ export function RedemptionTable({ data }: RedemptionTableProps) {
       key: "totalBill",
       header: "Total Bill Amount",
       render: (value: number) => `$${value.toFixed(2)}`,
-    },
-    {
-      key: "dateTime",
-      header: "Date & Time",
-      width: "20%",
     },
   ];
 
