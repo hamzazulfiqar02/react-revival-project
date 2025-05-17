@@ -5,7 +5,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Staff } from "@/types/restaurant";
+import { Staff } from "../../manager/types";
 
 interface StaffMemberModalProps {
   open: boolean;
@@ -31,11 +31,11 @@ export function StaffMemberModal({
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev: Partial<Staff>) => ({ ...prev, [name]: value }));
   };
 
   const handleRoleChange = (value: "MANAGER" | "STAFF") => {
-    setFormData(prev => ({ ...prev, role: value }));
+    setFormData((prev: Partial<Staff>) => ({ ...prev, role: value }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -96,7 +96,7 @@ export function StaffMemberModal({
             <Label>Status</Label>
             <RadioGroup 
               value={formData.isActive ? "active" : "inactive"} 
-              onValueChange={(value) => setFormData(prev => ({ ...prev, isActive: value === "active" }))}
+              onValueChange={(value) => setFormData((prev: Partial<Staff>) => ({ ...prev, isActive: value === "active" }))}
               className="flex space-x-4"
             >
               <div className="flex items-center space-x-2">

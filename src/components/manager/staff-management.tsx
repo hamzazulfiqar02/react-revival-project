@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Button } from "../ui/button";
-import { Staff } from "../../types/restaurant";
+import { Staff } from "./types";
 import { StaffMemberModal } from '../screens/manager/staff-member-modal';
 
 interface StaffManagementProps {

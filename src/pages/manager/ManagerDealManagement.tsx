@@ -2,7 +2,7 @@
 import React from 'react';
 import DashboardLayout from '@/components/layouts/dashboard-layout';
 import { DealManagement } from '@/components/manager/deal-management';
-import { Deal } from '@/types/restaurant';
+import { Deal } from '@/components/manager/types';
 
 export default function ManagerDealManagementPage() {
   // Mock deals data

@@ -2,7 +2,7 @@
 import React from "react";
 import { StatCard } from "../common/stat-card";
 import { Calendar, Clock, DollarSign, Users } from "lucide-react";
-import { Restaurant, Deal, Redemption } from "../../types/restaurant";
+import { Restaurant, Deal, Redemption } from "./types";
 
 interface DashboardOverviewProps {
   restaurant: Restaurant;

@@ -2,7 +2,7 @@
 import React from 'react';
 import DashboardLayout from '@/components/layouts/dashboard-layout';
 import { RedemptionHistory } from '@/components/manager/redemption-history';
-import { Redemption } from '@/types/restaurant';
+import { Redemption } from '@/components/manager/types';
 
 export default function ManagerRedemptionHistoryPage() {
   // Mock redemptions data with proper types

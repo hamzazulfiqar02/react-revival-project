@@ -1,8 +1,7 @@
 
 import React, { useState } from 'react';
 import { Button } from "../ui/button";
-import { Deal } from "../../types/restaurant";
-import { Dialog } from "../ui/dialog";
+import { Deal } from "./types";
 
 interface DealManagementProps {
   deals: Deal[];

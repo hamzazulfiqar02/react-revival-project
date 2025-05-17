@@ -2,7 +2,7 @@
 import React from 'react';
 import DashboardLayout from '@/components/layouts/dashboard-layout';
 import { DashboardOverview } from '@/components/manager/dashboard-overview';
-import { Redemption, Restaurant, Deal } from '@/types/restaurant';
+import { Restaurant, Deal, Redemption } from '@/components/manager/types';
 
 export default function ManagerDashboardOverview() {
   // Mock restaurant data
