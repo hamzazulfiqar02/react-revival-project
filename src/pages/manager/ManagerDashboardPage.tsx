@@ -36,11 +36,16 @@ export default function ManagerDashboardPage() {
 
   // Convert types if needed
   const typedRestaurant: Restaurant = {
-    ...restaurant,
+    id: restaurant.id,
+    name: restaurant.name,
+    logo: restaurant.logo,
+    cuisineType: restaurant.cuisineType,
+    address: restaurant.address,
     phoneNumber: restaurant.phoneNumber || '',
     email: restaurant.email || '',
     website: restaurant.website || '',
-    reservationUrl: restaurant.reservationUrl || ''
+    reservationUrl: restaurant.reservationUrl || '',
+    isPremium: restaurant.isPremium
   };
 
   // Wrapper functions to ensure correct typing

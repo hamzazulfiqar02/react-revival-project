@@ -11,22 +11,23 @@ interface RedeemReportingProps {
 
 export function RedeemReporting({ onRedeemSubmit }: RedeemReportingProps) {
   const [formData, setFormData] = useState<Partial<Redemption>>({
-    confirmationCode: '',
+    dealId: '',
     totalBill: 0,
     claimedUsers: 0,
     totalDiners: 0,
-    dealId: 'deal1', // Default value
+    confirmationCode: '',
     date: new Date().toISOString()
   });
+  
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: type === 'number' ? Number(value) : value
+    setFormData(prev => ({ 
+      ...prev, 
+      [name]: type === 'number' ? parseFloat(value) : value 
     }));
   };
 
@@ -36,18 +37,16 @@ export function RedeemReporting({ onRedeemSubmit }: RedeemReportingProps) {
     setError(null);
     
     try {
-      const redemption = await onRedeemSubmit(formData);
+      await onRedeemSubmit(formData);
       setSubmitSuccess(true);
-      // Reset form after success
       setFormData({
-        confirmationCode: '',
+        dealId: '',
         totalBill: 0,
         claimedUsers: 0,
         totalDiners: 0,
-        dealId: 'deal1',
+        confirmationCode: '',
         date: new Date().toISOString()
       });
-      
       setTimeout(() => {
         setSubmitSuccess(false);
       }, 3000);
@@ -62,65 +61,66 @@ export function RedeemReporting({ onRedeemSubmit }: RedeemReportingProps) {
     <div>
       <h1 className="text-xl font-semibold mb-6">Report Redemption</h1>
       
-      <div className="bg-white rounded-lg shadow-sm p-6 max-w-3xl mx-auto">
+      <div className="bg-white rounded-lg shadow-sm p-6">
         <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="space-y-2">
-            <Label htmlFor="confirmationCode">Confirmation Code</Label>
-            <Input
-              id="confirmationCode"
-              name="confirmationCode"
-              value={formData.confirmationCode}
-              onChange={handleChange}
-              required
-              placeholder="Enter the 4-digit code"
-            />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-2">
+              <Label htmlFor="dealId">Deal</Label>
+              <select
+                id="dealId"
+                name="dealId"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                value={formData.dealId}
+                onChange={handleChange}
+                required
+              >
+                <option value="">Select Deal</option>
+                <option value="deal1">BOGO Main Dish</option>
+                <option value="deal2">Happy Hour Special</option>
+              </select>
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="confirmationCode">Confirmation Code</Label>
+              <Input
+                id="confirmationCode"
+                name="confirmationCode"
+                value={formData.confirmationCode}
+                onChange={handleChange}
+                required
+                maxLength={4}
+                placeholder="Enter 4-digit code"
+              />
+            </div>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="space-y-2">
-              <Label htmlFor="totalBill">Total Bill Amount ($)</Label>
+              <Label htmlFor="totalBill">Total Bill Amount</Label>
               <Input
                 id="totalBill"
                 name="totalBill"
                 type="number"
-                min="0"
-                step="0.01"
-                value={formData.totalBill}
+                value={formData.totalBill?.toString()}
                 onChange={handleChange}
                 required
+                min="0"
+                step="0.01"
               />
             </div>
             
             <div className="space-y-2">
-              <Label htmlFor="dealId">Deal Type</Label>
-              <select
-                id="dealId"
-                name="dealId"
-                value={formData.dealId}
-                onChange={(e) => setFormData(prev => ({ ...prev, dealId: e.target.value }))}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                required
-              >
-                <option value="deal1">BOGO Monday</option>
-                <option value="deal2">Happy Hour</option>
-              </select>
-            </div>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="claimedUsers">Users Claiming Deal</Label>
+              <Label htmlFor="claimedUsers">Claimed Users</Label>
               <Input
                 id="claimedUsers"
                 name="claimedUsers"
                 type="number"
-                min="0"
-                max="3"
-                value={formData.claimedUsers}
+                value={formData.claimedUsers?.toString()}
                 onChange={handleChange}
                 required
+                min="1"
+                max="3"
               />
-              <p className="text-xs text-gray-500">Maximum 3 users per bill</p>
             </div>
             
             <div className="space-y-2">
@@ -129,12 +129,22 @@ export function RedeemReporting({ onRedeemSubmit }: RedeemReportingProps) {
                 id="totalDiners"
                 name="totalDiners"
                 type="number"
-                min="1"
-                value={formData.totalDiners}
+                value={formData.totalDiners?.toString()}
                 onChange={handleChange}
                 required
+                min="1"
               />
             </div>
+          </div>
+          
+          <div className="space-y-2">
+            <Label htmlFor="receiptImage">Receipt Image (Optional)</Label>
+            <Input
+              id="receiptImage"
+              name="receiptImage"
+              type="file"
+              accept="image/*"
+            />
           </div>
           
           {error && (
@@ -154,7 +164,7 @@ export function RedeemReporting({ onRedeemSubmit }: RedeemReportingProps) {
             disabled={isSubmitting}
             className="w-full"
           >
-            {isSubmitting ? "Submitting..." : "Report Redemption"}
+            {isSubmitting ? "Submitting..." : "Submit Redemption"}
           </Button>
         </form>
       </div>
