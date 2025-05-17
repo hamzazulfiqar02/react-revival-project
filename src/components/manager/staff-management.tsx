@@ -1,15 +1,7 @@
 
 import React from 'react';
 import { Button } from "../ui/button";
-
-interface Staff {
-  id: string;
-  name: string;
-  email: string;
-  role: string;
-  isActive: boolean;
-  [key: string]: any;
-}
+import { Staff } from "../../types/restaurant";
 
 interface StaffManagementProps {
   staff: Staff[];

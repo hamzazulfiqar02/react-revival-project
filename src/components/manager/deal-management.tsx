@@ -1,15 +1,7 @@
 
 import React from 'react';
 import { Button } from "../ui/button";
-
-interface Deal {
-  id: string;
-  name: string;
-  description: string;
-  type: string;
-  isActive: boolean;
-  [key: string]: any;
-}
+import { Deal } from "../../types/restaurant";
 
 interface DealManagementProps {
   deals: Deal[];

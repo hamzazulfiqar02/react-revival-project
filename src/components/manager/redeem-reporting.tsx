@@ -2,9 +2,10 @@
 import React, { useState } from 'react';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
+import { Redemption } from '../../types/restaurant';
 
 interface RedeemReportingProps {
-  onRedeemSubmit: (data: any) => Promise<any>;
+  onRedeemSubmit: (data: Partial<Redemption>) => Promise<Redemption>;
 }
 
 export function RedeemReporting({ onRedeemSubmit }: RedeemReportingProps) {

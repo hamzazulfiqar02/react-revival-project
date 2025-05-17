@@ -2,10 +2,11 @@
 import React from 'react'
 import DashboardLayout from '@/components/layouts/dashboard-layout'
 import { RestaurantSettings } from '@/components/manager/restaurant-settings'
+import { Restaurant } from '@/types/restaurant'
 
 export default function ManagerSettingsPage() {
   // Mock restaurant data
-  const mockRestaurant = {
+  const mockRestaurant: Restaurant = {
     id: "restaurant1",
     name: "Sample Restaurant",
     logo: "/placeholder-logo.png",
@@ -18,10 +19,13 @@ export default function ManagerSettingsPage() {
     isPremium: true
   };
   
-  // Mock function
-  const handleUpdateRestaurant = (data) => {
+  // Mock function with proper type annotation
+  const handleUpdateRestaurant = (data: Partial<Restaurant>): Promise<Restaurant> => {
     console.log('Restaurant updated:', data);
-    return Promise.resolve(data);
+    return Promise.resolve({
+      ...mockRestaurant,
+      ...data
+    });
   };
   
   return (

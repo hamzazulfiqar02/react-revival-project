@@ -2,34 +2,68 @@
 import React from 'react'
 import DashboardLayout from '@/components/layouts/dashboard-layout'
 import { DealManagement } from '@/components/manager/deal-management'
+import { Deal } from '@/types/restaurant'
 
 export default function ManagerDealManagementPage() {
   // Mock deals data
-  const mockDeals = [
+  const mockDeals: Deal[] = [
     {
       id: "deal1",
-      name: "BOGO Main Dish",
+      restaurantId: "restaurant1",
       type: "BOGO",
+      name: "BOGO Main Dish",
       description: "Buy one main dish, get one free",
-      isActive: true,
-      days: ["mon"]
+      days: ["mon"],
+      startDate: "2025-05-01",
+      isActive: true
     },
     {
       id: "deal2",
-      name: "Happy Hour Special",
+      restaurantId: "restaurant1",
       type: "HAPPY_HOUR",
+      name: "Happy Hour Special",
       description: "50% off selected appetizers",
-      isActive: true,
       days: ["mon", "tue", "wed"],
+      startDate: "2025-05-01",
       startTime: "17:00",
-      endTime: "19:00"
+      endTime: "19:00",
+      isActive: true
     }
   ]
   
-  // Mock functions
-  const handleAddDeal = (deal) => Promise.resolve({ id: "new-deal", ...deal });
-  const handleUpdateDeal = (id, deal) => Promise.resolve({ id, ...deal });
-  const handleDeleteDeal = (id) => Promise.resolve(true);
+  // Mock functions with proper type annotations
+  const handleAddDeal = (deal: Partial<Deal>): Promise<Deal> => {
+    console.log('Adding deal:', deal);
+    return Promise.resolve({ 
+      id: "new-deal", 
+      restaurantId: "restaurant1",
+      type: deal.type || "BOGO", 
+      name: deal.name || "New Deal", 
+      description: deal.description || "", 
+      days: deal.days || ["mon"], 
+      startDate: deal.startDate || new Date().toISOString().split('T')[0],
+      isActive: deal.isActive !== undefined ? deal.isActive : true
+    });
+  };
+  
+  const handleUpdateDeal = (id: string, deal: Partial<Deal>): Promise<Deal> => {
+    console.log('Updating deal:', id, deal);
+    return Promise.resolve({ 
+      id, 
+      restaurantId: "restaurant1",
+      type: deal.type || "BOGO", 
+      name: deal.name || "Updated Deal", 
+      description: deal.description || "", 
+      days: deal.days || ["mon"], 
+      startDate: deal.startDate || new Date().toISOString().split('T')[0],
+      isActive: deal.isActive !== undefined ? deal.isActive : true
+    });
+  };
+  
+  const handleDeleteDeal = (id: string): Promise<boolean> => {
+    console.log('Deleting deal:', id);
+    return Promise.resolve(true);
+  };
   
   return (
     <DashboardLayout type="manager">

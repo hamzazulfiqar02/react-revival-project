@@ -1,20 +1,8 @@
-
 import React, { useState } from 'react';
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
-
-interface Restaurant {
-  id: string;
-  name: string;
-  logo: string;
-  cuisineType: string;
-  address: string;
-  phoneNumber: string;
-  email: string;
-  website: string;
-  reservationUrl: string;
-  [key: string]: any;
-}
+import { Button } from '../ui/button';
+import { Input } from '../ui/input';
+import { Restaurant } from '../../types/restaurant';
+import { Label } from '../ui/label';
 
 interface RestaurantSettingsProps {
   restaurant: Restaurant;
@@ -22,25 +10,46 @@ interface RestaurantSettingsProps {
 }
 
 export function RestaurantSettings({ restaurant, onUpdateRestaurant }: RestaurantSettingsProps) {
-  const [formData, setFormData] = useState<Restaurant>(restaurant);
-  const [isLoading, setIsLoading] = useState(false);
+  const [formData, setFormData] = useState<Partial<Restaurant>>({
+    name: restaurant.name,
+    cuisineType: restaurant.cuisineType,
+    address: restaurant.address,
+    phoneNumber: restaurant.phoneNumber || '',
+    email: restaurant.email || '',
+    website: restaurant.website || '',
+    reservationUrl: restaurant.reservationUrl || ''
+  });
+  
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [logoFile, setLogoFile] = useState<File | null>(null);
   
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+  
+  const handleLogoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setLogoFile(e.target.files[0]);
+    }
   };
   
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
+    setIsSubmitting(true);
     
     try {
-      await onUpdateRestaurant(formData);
+      // In a real implementation, you'd upload the logo file and get its URL
+      // For now, we'll just keep the existing logo
+      const updatedRestaurant = await onUpdateRestaurant({
+        ...formData
+      });
+      
       alert('Restaurant settings updated successfully!');
     } catch (error) {
       alert('Error updating restaurant settings');
     } finally {
-      setIsLoading(false);
+      setIsSubmitting(false);
     }
   };
   
@@ -50,9 +59,9 @@ export function RestaurantSettings({ restaurant, onUpdateRestaurant }: Restauran
       
       <div className="bg-white rounded-lg shadow-sm p-6">
         <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="space-y-2">
-            <label htmlFor="name" className="text-sm font-medium">Restaurant Name</label>
-            <Input 
+          <div>
+            <Label htmlFor="name">Restaurant Name</Label>
+            <Input
               id="name"
               name="name"
               value={formData.name}
@@ -61,19 +70,20 @@ export function RestaurantSettings({ restaurant, onUpdateRestaurant }: Restauran
             />
           </div>
           
-          <div className="space-y-2">
-            <label htmlFor="cuisineType" className="text-sm font-medium">Cuisine Type</label>
-            <Input 
+          <div>
+            <Label htmlFor="cuisineType">Cuisine Type</Label>
+            <Input
               id="cuisineType"
               name="cuisineType"
               value={formData.cuisineType}
               onChange={handleChange}
+              required
             />
           </div>
           
-          <div className="space-y-2">
-            <label htmlFor="address" className="text-sm font-medium">Address</label>
-            <Input 
+          <div>
+            <Label htmlFor="address">Address</Label>
+            <Input
               id="address"
               name="address"
               value={formData.address}
@@ -82,32 +92,30 @@ export function RestaurantSettings({ restaurant, onUpdateRestaurant }: Restauran
             />
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <label htmlFor="phoneNumber" className="text-sm font-medium">Phone Number</label>
-              <Input 
-                id="phoneNumber"
-                name="phoneNumber"
-                value={formData.phoneNumber}
-                onChange={handleChange}
-              />
-            </div>
-            
-            <div className="space-y-2">
-              <label htmlFor="email" className="text-sm font-medium">Email</label>
-              <Input 
-                id="email"
-                name="email"
-                type="email"
-                value={formData.email}
-                onChange={handleChange}
-              />
-            </div>
+          <div>
+            <Label htmlFor="phoneNumber">Phone Number</Label>
+            <Input
+              id="phoneNumber"
+              name="phoneNumber"
+              value={formData.phoneNumber}
+              onChange={handleChange}
+            />
           </div>
           
-          <div className="space-y-2">
-            <label htmlFor="website" className="text-sm font-medium">Website</label>
-            <Input 
+          <div>
+            <Label htmlFor="email">Email</Label>
+            <Input
+              id="email"
+              name="email"
+              type="email"
+              value={formData.email}
+              onChange={handleChange}
+            />
+          </div>
+          
+          <div>
+            <Label htmlFor="website">Website</Label>
+            <Input
               id="website"
               name="website"
               value={formData.website}
@@ -115,9 +123,9 @@ export function RestaurantSettings({ restaurant, onUpdateRestaurant }: Restauran
             />
           </div>
           
-          <div className="space-y-2">
-            <label htmlFor="reservationUrl" className="text-sm font-medium">Reservation URL</label>
-            <Input 
+          <div>
+            <Label htmlFor="reservationUrl">Reservation URL</Label>
+            <Input
               id="reservationUrl"
               name="reservationUrl"
               value={formData.reservationUrl}
@@ -125,8 +133,20 @@ export function RestaurantSettings({ restaurant, onUpdateRestaurant }: Restauran
             />
           </div>
           
-          <Button type="submit" disabled={isLoading}>
-            {isLoading ? 'Updating...' : 'Save Settings'}
+          <div>
+            <Label htmlFor="logo">Logo</Label>
+            <Input
+              id="logo"
+              name="logo"
+              type="file"
+              accept="image/*"
+              onChange={handleLogoChange}
+              className="cursor-pointer"
+            />
+          </div>
+          
+          <Button type="submit" disabled={isSubmitting} className="w-full">
+            {isSubmitting ? 'Updating...' : 'Update Settings'}
           </Button>
         </form>
       </div>

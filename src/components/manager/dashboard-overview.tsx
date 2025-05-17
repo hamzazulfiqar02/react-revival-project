@@ -2,28 +2,7 @@
 import React from "react";
 import { StatCard } from "../common/stat-card";
 import { Calendar, Clock, DollarSign, Users } from "lucide-react";
-
-interface Restaurant {
-  id: string;
-  name: string;
-  [key: string]: any;
-}
-
-interface Deal {
-  id: string;
-  isActive: boolean;
-  [key: string]: any;
-}
-
-interface Redemption {
-  id: string;
-  date: string;
-  totalBill: number;
-  dealId: string;
-  claimedUsers: number;
-  totalDiners: number;
-  [key: string]: any;
-}
+import { Restaurant, Deal, Redemption } from "../../types/restaurant";
 
 interface DashboardOverviewProps {
   restaurant: Restaurant;
