@@ -1,8 +1,8 @@
 
 import React from 'react';
-import DashboardLayout from '@/components/layouts/dashboard-layout';
-import { StaffManagement } from '@/components/manager/staff-management';
-import { Staff } from '@/components/manager/types';
+import DashboardLayout from '../../components/layouts/dashboard-layout';
+import { StaffManagement } from '../../components/manager/staff-management';
+import { Staff } from '../../components/manager/types';
 
 export default function ManagerStaffManagementPage() {
   // Mock staff data with proper types

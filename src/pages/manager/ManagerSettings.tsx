@@ -1,8 +1,8 @@
 
 import React from 'react';
-import DashboardLayout from '@/components/layouts/dashboard-layout';
-import { RestaurantSettings } from '@/components/manager/restaurant-settings';
-import { Restaurant } from '@/components/manager/types';
+import DashboardLayout from '../../components/layouts/dashboard-layout';
+import { RestaurantSettings } from '../../components/manager/restaurant-settings';
+import { Restaurant } from '../../components/manager/types';
 
 export default function ManagerSettingsPage() {
   // Mock restaurant data

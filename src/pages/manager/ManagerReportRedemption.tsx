@@ -1,8 +1,8 @@
 
 import React from 'react';
-import DashboardLayout from '@/components/layouts/dashboard-layout';
-import { RedeemReporting } from '@/components/manager/redeem-reporting';
-import { Redemption } from '@/components/manager/types';
+import DashboardLayout from '../../components/layouts/dashboard-layout';
+import { RedeemReporting } from '../../components/manager/redeem-reporting';
+import { Redemption } from '../../components/manager/types';
 
 export default function ManagerReportRedemptionPage() {
   // Mock function with proper type annotation
