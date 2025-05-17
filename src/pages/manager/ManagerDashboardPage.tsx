@@ -11,6 +11,7 @@ import { StaffManagement } from '../../components/manager/staff-management';
 import { RedeemReporting } from '../../components/manager/redeem-reporting';
 import { RedemptionHistory } from '../../components/manager/redemption-history';
 import { RestaurantSettings } from '../../components/manager/restaurant-settings';
+import { Restaurant, Deal, Staff, Redemption } from '../../components/manager/types';
 
 export default function ManagerDashboardPage() {
   const navigate = useNavigate();
@@ -33,11 +34,28 @@ export default function ManagerDashboardPage() {
     return <div>Loading...</div>;
   }
 
+  // Convert types if needed
+  const typedRestaurant: Restaurant = {
+    ...restaurant,
+    phoneNumber: restaurant.phoneNumber || '',
+    email: restaurant.email || '',
+    website: restaurant.website || '',
+    reservationUrl: restaurant.reservationUrl || ''
+  };
+
+  // Wrapper functions to ensure correct typing
+  const handleAddDeal = (deal: Partial<Deal>) => addDeal(deal as any);
+  const handleUpdateDeal = (id: string, deal: Partial<Deal>) => updateDeal(id, deal as any);
+  const handleAddStaff = (staff: Partial<Staff>) => addStaff(staff as any);
+  const handleUpdateStaff = (id: string, staff: Partial<Staff>) => updateStaff(id, staff as any);
+  const handleUpdateRestaurant = (data: Partial<Restaurant>) => updateRestaurant(data as any);
+  const handleAddRedemption = (data: Partial<Redemption>) => addRedemption(data as any);
+
   return (
     <Routes>
       <Route path="/" element={
         <DashboardLayout type="manager">
-          <DashboardOverview restaurant={restaurant} deals={deals || []} redemptions={redemptions || []} />
+          <DashboardOverview restaurant={typedRestaurant} deals={deals || []} redemptions={redemptions || []} />
         </DashboardLayout>
       } />
       
@@ -45,8 +63,8 @@ export default function ManagerDashboardPage() {
         <DashboardLayout type="manager">
           <DealManagement 
             deals={deals || []} 
-            onAddDeal={addDeal}
-            onUpdateDeal={updateDeal}
+            onAddDeal={handleAddDeal}
+            onUpdateDeal={handleUpdateDeal}
             onDeleteDeal={deleteDeal}
           />
         </DashboardLayout>
@@ -56,8 +74,8 @@ export default function ManagerDashboardPage() {
         <DashboardLayout type="manager">
           <StaffManagement 
             staff={staff || []}
-            onAddStaff={addStaff}
-            onUpdateStaff={updateStaff}
+            onAddStaff={handleAddStaff}
+            onUpdateStaff={handleUpdateStaff}
             onDeleteStaff={deleteStaff}
           />
         </DashboardLayout>
@@ -65,7 +83,7 @@ export default function ManagerDashboardPage() {
       
       <Route path="/report-redemption" element={
         <DashboardLayout type="manager">
-          <RedeemReporting onRedeemSubmit={addRedemption} />
+          <RedeemReporting onRedeemSubmit={handleAddRedemption} />
         </DashboardLayout>
       } />
       
@@ -78,8 +96,8 @@ export default function ManagerDashboardPage() {
       <Route path="/settings" element={
         <DashboardLayout type="manager">
           <RestaurantSettings 
-            restaurant={restaurant}
-            onUpdateRestaurant={updateRestaurant}
+            restaurant={typedRestaurant}
+            onUpdateRestaurant={handleUpdateRestaurant}
           />
         </DashboardLayout>
       } />

@@ -5,10 +5,10 @@ export interface Restaurant {
   logo: string;
   cuisineType: string;
   address: string;
-  phoneNumber: string;
-  email: string;
-  website: string;
-  reservationUrl: string;
+  phoneNumber?: string;
+  email?: string;
+  website?: string;
+  reservationUrl?: string;
   isPremium: boolean;
 }
 
