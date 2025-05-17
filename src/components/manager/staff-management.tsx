@@ -1,11 +1,15 @@
 
-import React, { useState } from "react";
+import React from 'react';
 import { Button } from "../ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
-import { Staff } from "../../types/restaurant";
-import { StaffForm } from "./staff-form";
-import { toast } from "../../helpers/toast";
-import { PlusCircle, Edit2, Trash2 } from "lucide-react";
+
+interface Staff {
+  id: string;
+  name: string;
+  email: string;
+  role: string;
+  isActive: boolean;
+  [key: string]: any;
+}
 
 interface StaffManagementProps {
   staff: Staff[];
@@ -15,52 +19,13 @@ interface StaffManagementProps {
 }
 
 export function StaffManagement({ staff, onAddStaff, onUpdateStaff, onDeleteStaff }: StaffManagementProps) {
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [activeStaff, setActiveStaff] = useState<Staff | null>(null);
-  
-  const handleOpenAddDialog = () => {
-    setActiveStaff(null);
-    setIsDialogOpen(true);
-  };
-  
-  const handleOpenEditDialog = (staffMember: Staff) => {
-    setActiveStaff(staffMember);
-    setIsDialogOpen(true);
-  };
-  
-  const handleStaffSubmit = async (staffData: Partial<Staff>) => {
-    try {
-      if (activeStaff) {
-        await onUpdateStaff(activeStaff.id, staffData);
-        toast.success('Staff member updated successfully!');
-      } else {
-        await onAddStaff(staffData);
-        toast.success('Staff member added successfully!');
-      }
-      setIsDialogOpen(false);
-    } catch (error) {
-      toast.error('Failed to save staff member.');
-    }
-  };
-  
-  const handleDeleteStaff = async (id: string) => {
-    try {
-      await onDeleteStaff(id);
-      toast.success('Staff member deleted successfully!');
-    } catch (error) {
-      toast.error('Failed to delete staff member.');
-    }
-  };
-
   return (
     <div>
       <h1 className="text-xl font-semibold mb-4">Staff Management</h1>
       
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-lg font-medium">Restaurant Staff</h2>
-        <Button onClick={handleOpenAddDialog} className="flex items-center gap-2">
-          <PlusCircle className="h-4 w-4" /> Add Staff Member
-        </Button>
+        <Button>Add Staff Member</Button>
       </div>
       
       <div className="bg-white rounded-lg shadow-sm overflow-hidden">
@@ -89,23 +54,11 @@ export function StaffManagement({ staff, onAddStaff, onUpdateStaff, onDeleteStaf
                     {staffMember.isActive ? 'Active' : 'Inactive'}
                   </span>
                 </td>
-                <td className="px-4 py-3 text-sm flex items-center space-x-2">
-                  <Button 
-                    variant="ghost" 
-                    size="sm" 
-                    onClick={() => handleOpenEditDialog(staffMember)}
-                    className="h-8 w-8 p-0"
-                  >
-                    <Edit2 className="h-4 w-4" />
-                  </Button>
-                  <Button 
-                    variant="ghost" 
-                    size="sm" 
-                    onClick={() => handleDeleteStaff(staffMember.id)}
-                    className="h-8 w-8 p-0 text-red-500 hover:text-red-700"
-                  >
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
+                <td className="px-4 py-3 text-sm">
+                  <div className="flex space-x-2">
+                    <Button variant="outline" size="sm">Edit</Button>
+                    <Button variant="destructive" size="sm">Delete</Button>
+                  </div>
                 </td>
               </tr>
             ))}
@@ -119,18 +72,6 @@ export function StaffManagement({ staff, onAddStaff, onUpdateStaff, onDeleteStaf
           </tbody>
         </table>
       </div>
-      
-      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="max-w-md">
-          <DialogHeader>
-            <DialogTitle>{activeStaff ? 'Edit Staff Member' : 'Add New Staff Member'}</DialogTitle>
-          </DialogHeader>
-          <StaffForm
-            onSubmit={handleStaffSubmit}
-            initialData={activeStaff || undefined}
-          />
-        </DialogContent>
-      </Dialog>
     </div>
   );
 }

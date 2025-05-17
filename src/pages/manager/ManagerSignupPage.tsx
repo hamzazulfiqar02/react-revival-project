@@ -4,8 +4,13 @@ import { Link } from 'react-router-dom'
 import UserAuthLayout from '@/components/layouts/user-auth-layout'
 import { Stepper } from '@/components/common'
 
+// Define the type for the onHandleNext prop
+interface StepProps {
+  onHandleNext: () => void;
+}
+
 // Since we don't have all the manager signup components set up, let's create some temporary placeholders
-const BasicInfoStep = ({ onHandleNext }) => (
+const BasicInfoStep: React.FC<StepProps> = ({ onHandleNext }) => (
   <div className="space-y-4">
     <h3 className="text-lg font-semibold">Restaurant Basic Information</h3>
     <div className="space-y-4">
@@ -33,7 +38,7 @@ const BasicInfoStep = ({ onHandleNext }) => (
   </div>
 );
 
-const LocationInfo = ({ onHandleNext }) => (
+const LocationInfo: React.FC<StepProps> = ({ onHandleNext }) => (
   <div className="space-y-4">
     <h3 className="text-lg font-semibold">Restaurant Location</h3>
     <div className="space-y-4">
@@ -55,7 +60,7 @@ const LocationInfo = ({ onHandleNext }) => (
   </div>
 );
 
-const AccountSetup = ({ onHandleNext }) => (
+const AccountSetup: React.FC<StepProps> = ({ onHandleNext }) => (
   <div className="space-y-4">
     <h3 className="text-lg font-semibold">Account Setup</h3>
     <div className="space-y-4">
@@ -77,7 +82,7 @@ const AccountSetup = ({ onHandleNext }) => (
   </div>
 );
 
-const DealSetup = ({ onHandleNext }) => (
+const DealSetup: React.FC<StepProps> = ({ onHandleNext }) => (
   <div className="space-y-4">
     <h3 className="text-lg font-semibold">Deal Setup</h3>
     <div className="space-y-4">
@@ -107,7 +112,7 @@ const DealSetup = ({ onHandleNext }) => (
   </div>
 );
 
-const UploadMedia = ({ onHandleNext }) => (
+const UploadMedia: React.FC<StepProps> = ({ onHandleNext }) => (
   <div className="space-y-4">
     <h3 className="text-lg font-semibold">Upload Media</h3>
     <div className="space-y-4">

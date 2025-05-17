@@ -1,8 +1,29 @@
 
 import React from "react";
-import { Restaurant, Deal, Redemption } from "../../types/restaurant";
 import { StatCard } from "../common/stat-card";
 import { Calendar, Clock, DollarSign, Users } from "lucide-react";
+
+interface Restaurant {
+  id: string;
+  name: string;
+  [key: string]: any;
+}
+
+interface Deal {
+  id: string;
+  isActive: boolean;
+  [key: string]: any;
+}
+
+interface Redemption {
+  id: string;
+  date: string;
+  totalBill: number;
+  dealId: string;
+  claimedUsers: number;
+  totalDiners: number;
+  [key: string]: any;
+}
 
 interface DashboardOverviewProps {
   restaurant: Restaurant;
@@ -11,7 +32,6 @@ interface DashboardOverviewProps {
 }
 
 export function DashboardOverview({ restaurant, deals, redemptions }: DashboardOverviewProps) {
-  // Calculate some basic stats
   const activeDeals = deals.filter(deal => deal.isActive).length;
   const totalRedemptions = redemptions.length;
   const todayRedemptions = redemptions.filter(
