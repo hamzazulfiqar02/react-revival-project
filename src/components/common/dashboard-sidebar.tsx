@@ -1,7 +1,9 @@
 
 import React from "react"
 import { Link, useLocation } from "react-router-dom"
-import { LogOut, Settings } from "lucide-react"
+import { LogOut, Settings, LayoutDashboard, Store, Users, CalendarIcon, MessageSquare, BarChart2, FileText, Clock } from "lucide-react"
+import RoleSwitcher from "./role-switcher"
+import { useRole } from "@/context/role-context"
 
 interface Props {
   type: string
@@ -9,21 +11,25 @@ interface Props {
 
 export default function DashboardSidebar({ type }: Props) {
   const location = useLocation()
+  const { switchRole } = useRole()
 
-  // Simple placeholder nav items
+  // Admin navigation items
   const adminNavItems = [
-    { name: "Overview", href: "/admin/overview", icon: () => <span>📊</span> },
-    { name: "Restaurants", href: "/admin/restaurants", icon: () => <span>🍽️</span> },
-    { name: "Users", href: "/admin/users", icon: () => <span>👥</span> },
-    { name: "Activity Logs", href: "/admin/activity-logs", icon: () => <span>📝</span> },
+    { name: "Overview", href: "/admin/overview", icon: LayoutDashboard },
+    { name: "Restaurants", href: "/admin/restaurants", icon: Store },
+    { name: "Users", href: "/admin/users", icon: Users },
+    { name: "Activity Logs", href: "/admin/activity-logs", icon: FileText },
   ]
 
+  // Manager navigation items
   const managerNavItems = [
-    { name: "Overview", href: "/manager/overview", icon: () => <span>📊</span> },
-    { name: "Deal Management", href: "/manager/deal-management", icon: () => <span>🎟️</span> },
-    { name: "Staff Management", href: "/manager/staff-management", icon: () => <span>👥</span> },
-    { name: "Dishes", href: "/manager/dishes", icon: () => <span>🍲</span> },
-    { name: "Redemption View", href: "/manager/redemption-view", icon: () => <span>📋</span> },
+    { name: "Overview", href: "/manager/overview", icon: LayoutDashboard },
+    { name: "Deal Management", href: "/manager/deal-management", icon: CalendarIcon },
+    { name: "Staff Management", href: "/manager/staff-management", icon: Users },
+    { name: "Dishes", href: "/manager/dishes", icon: Store },
+    { name: "Redemption View", href: "/manager/redemption-view", icon: BarChart2 },
+    { name: "Redemption History", href: "/manager/redemption-history", icon: Clock },
+    { name: "Report Redemption", href: "/manager/report-redemption", icon: MessageSquare },
   ]
 
   const getNavItems = (type: string) => {
@@ -38,11 +44,18 @@ export default function DashboardSidebar({ type }: Props) {
   }
 
   const navItems = getNavItems(type)
-  const settingsPath = "/manager/settings"
+  const settingsPath = `/${type}/settings`
+
+  // Handle logout
+  const handleLogout = () => {
+    // Navigate to customer view
+    switchRole("user")
+    window.location.href = "/"
+  }
 
   return (
     <div className="w-64 bg-white border-r border-gray-200 flex flex-col h-full">
-      <div className="p-4">
+      <div className="p-4 flex justify-between items-center">
         <Link to={`/${type}`} className="w-10 h-10 flex items-center shadow-md">
           <img
             src="/images/super-mondays-logo.png"
@@ -50,6 +63,9 @@ export default function DashboardSidebar({ type }: Props) {
             className="w-10 h-10 mr-2"
           />
         </Link>
+        <div className="scale-75 origin-right">
+          <RoleSwitcher />
+        </div>
       </div>
       <nav className="flex-1 p-4 space-y-1 mt-6">
         {navItems.map((item) => {
@@ -65,9 +81,9 @@ export default function DashboardSidebar({ type }: Props) {
                   : "text-Black70 hover:bg-gray-100"
               }`}
             >
-              <span className={`mr-3 ${isActive ? "text-white" : "text-Black70"}`}>
-                <item.icon />
-              </span>
+              <item.icon
+                className={`mr-3 h-4 w-4 ${isActive ? "text-white" : "text-Black70"}`}
+              />
               {item.name}
             </Link>
           )
@@ -95,7 +111,10 @@ export default function DashboardSidebar({ type }: Props) {
             Settings
           </Link>
         )}
-        <button className="flex items-center px-4 py-3 w-full rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors">
+        <button 
+          onClick={handleLogout}
+          className="flex items-center px-4 py-3 w-full rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors"
+        >
           <LogOut className="mr-3 h-5 w-5 text-gray-500" />
           Log Out
         </button>

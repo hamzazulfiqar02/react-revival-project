@@ -1,13 +1,21 @@
 
 import React, { useState } from "react"
-import { Link, useLocation } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import { useAuth } from "@/context/auth-context"
 import { Menu, X } from "lucide-react"
+import { useRole } from "@/context/role-context"
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false)
   const location = useLocation()
+  const navigate = useNavigate()
   const { user, signOut } = useAuth()
+  const { currentRole } = useRole()
+
+  // Don't show header for admin and manager roles
+  if (currentRole === "admin" || currentRole === "manager") {
+    return null
+  }
 
   const navigation = [
     { name: "Home", href: "/" },
