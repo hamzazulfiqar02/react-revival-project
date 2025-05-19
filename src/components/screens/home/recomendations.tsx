@@ -1,6 +1,6 @@
 
 import React from "react";
-import { recommendations } from "../../../constants/restaurants";
+import { recommendations } from "../../../constants/home";
 import { ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 

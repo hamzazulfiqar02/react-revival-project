@@ -1,6 +1,6 @@
 
 import React from "react";
-import { bestDeals } from "../../../constants/deals";
+import { bestDeals } from "../../../constants/home";
 
 const BestDeals = () => {
   return (
