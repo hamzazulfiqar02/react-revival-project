@@ -70,7 +70,7 @@ const Header = () => {
                   />
                 </div>
                 <span className="text-sm font-medium">
-                  {user.user_metadata?.name || "User"}
+                  {user.name || "User"}
                 </span>
               </Link>
               <button
