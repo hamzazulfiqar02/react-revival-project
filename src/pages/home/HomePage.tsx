@@ -1,29 +1,33 @@
 
-import React from "react"
-import UserLayout from "@/components/layouts/user-layout"
-import HeroSection from "../../components/screens/home/hero-section"
-import DiningCategories from "../../components/screens/home/dining-categories"
-import BestDeals from "../../components/screens/home/best-deals"
-import Recomendations from "../../components/screens/home/recomendations"
+import React from 'react';
+import { Header } from '../../components/common';
+import { HeroSection, DiningCategories, RecommendationsSection, BestDeals } from '../../components/screens/home';
+import BottomNavigation from '../../components/bottom-navigation';
+import Footer from '../../components/common/footer';
+import RoleSwitcher from '../../components/common/role-switcher';
 
 const HomePage = () => {
   return (
-    <UserLayout>
-      <div>
-        {/* Hero */}
-        <HeroSection />
-
-        {/* Categories */}
-        <DiningCategories />
-
-        {/* Best Deals */}
-        <BestDeals />
-
-        {/* Recommendations */}
-        <Recomendations />
+    <div className="min-h-screen bg-white max-w-6xl mx-auto px-4 pb-16 md:pb-0 flex flex-col gap-8 md:gap-16 my-6">
+      <div className="fixed top-4 right-4 z-50">
+        <RoleSwitcher />
       </div>
-    </UserLayout>
-  )
-}
+      
+      {/* Header */}
+      <Header />
 
-export default HomePage
+      <main className="flex-1 flex flex-col gap-12">
+        <HeroSection />
+        <DiningCategories />
+        <RecommendationsSection />
+        <BestDeals />
+      </main>
+
+      {/* Footer */}
+      <Footer />
+      <BottomNavigation />
+    </div>
+  );
+};
+
+export default HomePage;

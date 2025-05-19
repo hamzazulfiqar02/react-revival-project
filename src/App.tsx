@@ -33,8 +33,8 @@ function App() {
   return (
     <RoleProvider>
       <Routes>
-        {/* User/Customer Routes */}
-        <Route path="/" element={<MainLayout><HomePage /></MainLayout>} />
+        {/* User/Customer Routes - HomePage doesn't use MainLayout to prevent duplicate headers */}
+        <Route path="/" element={<HomePage />} />
         <Route path="/explore" element={<MainLayout><ExplorePage /></MainLayout>} />
         <Route path="/explore-restaurants" element={<MainLayout><ExplorePage /></MainLayout>} />
         <Route path="/deals" element={<MainLayout><DealsPage /></MainLayout>} />
