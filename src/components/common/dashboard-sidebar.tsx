@@ -3,7 +3,7 @@ import React from "react"
 import { Link, useLocation } from "react-router-dom"
 import { LogOut, Settings, LayoutDashboard, Store, Users, CalendarIcon, MessageSquare, BarChart2, FileText, Clock } from "lucide-react"
 import RoleSwitcher from "./role-switcher"
-import { useRole } from "@/context/role-context"
+import { useRole } from "../../context/role-context"
 
 interface Props {
   type: string

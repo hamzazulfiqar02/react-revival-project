@@ -2,7 +2,7 @@
 import React from "react"
 import { Link, useLocation } from "react-router-dom"
 import { Home, Search, Ticket, User, Settings } from "lucide-react"
-import { useRole } from "@/context/role-context"
+import { useRole } from "../context/role-context"
 
 export default function BottomNavigation() {
   const location = useLocation()

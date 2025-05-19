@@ -1,9 +1,9 @@
 
 import React, { useState } from "react"
 import { Link, useLocation, useNavigate } from "react-router-dom"
-import { useAuth } from "@/context/auth-context"
+import { useAuth } from "../../context/auth-context"
 import { Menu, X } from "lucide-react"
-import { useRole } from "@/context/role-context"
+import { useRole } from "../../context/role-context"
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false)

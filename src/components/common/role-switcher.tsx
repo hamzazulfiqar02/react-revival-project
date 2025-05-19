@@ -1,8 +1,8 @@
 
 import React from "react"
 import { useNavigate } from "react-router-dom"
-import { useRole } from "@/context/role-context" 
-import { Button } from "@/components/ui/button"
+import { useRole } from "../../context/role-context" 
+import { Button } from "../ui/button"
 import { UserRound, Building2, Users } from "lucide-react"
 
 const roleRoutes = {
