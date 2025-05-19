@@ -2,6 +2,7 @@
 import React from "react";
 import { recommendations } from "../../../constants/home";
 import { ChevronRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Recomendations = () => {
   return (
@@ -10,12 +11,12 @@ const Recomendations = () => {
         <h3 className="text-xl font-medium font-poppins text-black">
           Recommendations
         </h3>
-        <a
-          href="/explore-restaurants"
+        <Link
+          to="/explore-restaurants"
           className="flex items-center text-sm font-poppins"
         >
           See More <ChevronRight size={16} />
-        </a>
+        </Link>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

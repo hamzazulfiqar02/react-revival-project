@@ -4,6 +4,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { RoleProvider } from './context/role-context';
 
 // Import pages
+import HomePage from './pages/home/HomePage';
 import ManagerSignupPage from './pages/manager/ManagerSignupPage';
 import RestaurantReviewPage from './pages/manager/RestaurantReviewPage';
 import ManagerDashboardPage from './pages/manager/ManagerDashboardPage';
@@ -12,7 +13,6 @@ import ManagerDashboardPage from './pages/manager/ManagerDashboardPage';
 import AdminDashboardPage from './pages/admin/AdminDashboardPage';
 
 // Import user/customer pages
-import HomePage from './pages/home/HomePage';
 import ExplorePage from './pages/explore/ExplorePage';
 import DealsPage from './pages/deals/DealsPage';
 import AccountPage from './pages/account/AccountPage';

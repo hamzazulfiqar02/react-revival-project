@@ -1,6 +1,6 @@
 
-import { categories } from "../../../constants/home";
 import React from "react";
+import { categories } from "../../../constants/home";
 
 const DiningCategories = () => {
   return (

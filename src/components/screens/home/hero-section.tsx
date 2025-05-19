@@ -1,7 +1,7 @@
 
-import { Input } from "@/components/ui/input";
-import { Search } from "lucide-react";
 import React from "react";
+import { Input } from "../../ui/input";
+import { Search } from "lucide-react";
 
 const HeroSection = () => {
   return (
