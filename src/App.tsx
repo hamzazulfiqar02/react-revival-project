@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { RoleProvider } from './context/role-context';
 
 // Import pages
@@ -31,41 +31,39 @@ import NotFound from './pages/NotFound';
 
 function App() {
   return (
-    <BrowserRouter>
-      <RoleProvider>
-        <Routes>
-          {/* User/Customer Routes */}
-          <Route path="/" element={<MainLayout><HomePage /></MainLayout>} />
-          <Route path="/explore" element={<MainLayout><ExplorePage /></MainLayout>} />
-          <Route path="/explore-restaurants" element={<MainLayout><ExplorePage /></MainLayout>} />
-          <Route path="/deals" element={<MainLayout><DealsPage /></MainLayout>} />
-          <Route path="/account" element={<MainLayout><AccountPage /></MainLayout>} />
-          <Route path="/discount" element={<MainLayout><DiscountPage /></MainLayout>} />
-          <Route path="/feedback" element={<MainLayout><FeedbackPage /></MainLayout>} />
-          
-          {/* Auth Routes */}
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<SignupPage />} />
-          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-          <Route path="/reset-password" element={<ResetPasswordPage />} />
+    <RoleProvider>
+      <Routes>
+        {/* User/Customer Routes */}
+        <Route path="/" element={<MainLayout><HomePage /></MainLayout>} />
+        <Route path="/explore" element={<MainLayout><ExplorePage /></MainLayout>} />
+        <Route path="/explore-restaurants" element={<MainLayout><ExplorePage /></MainLayout>} />
+        <Route path="/deals" element={<MainLayout><DealsPage /></MainLayout>} />
+        <Route path="/account" element={<MainLayout><AccountPage /></MainLayout>} />
+        <Route path="/discount" element={<MainLayout><DiscountPage /></MainLayout>} />
+        <Route path="/feedback" element={<MainLayout><FeedbackPage /></MainLayout>} />
+        
+        {/* Auth Routes */}
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+        <Route path="/reset-password" element={<ResetPasswordPage />} />
 
-          {/* Manager Routes */}
-          <Route path="/manager/signup" element={<ManagerSignupPage />} />
-          <Route path="/manager/restaurant-review" element={<RestaurantReviewPage />} />
-          <Route path="/manager/*" element={<ManagerDashboardPage />} />
+        {/* Manager Routes */}
+        <Route path="/manager/signup" element={<ManagerSignupPage />} />
+        <Route path="/manager/restaurant-review" element={<RestaurantReviewPage />} />
+        <Route path="/manager/*" element={<ManagerDashboardPage />} />
 
-          {/* Admin Routes */}
-          <Route path="/admin/*" element={<AdminDashboardPage />} />
+        {/* Admin Routes */}
+        <Route path="/admin/*" element={<AdminDashboardPage />} />
 
-          {/* Routes for direct access based on URL */}
-          <Route path="/users" element={<Navigate to="/admin/users" replace />} />
-          <Route path="/restaurants" element={<Navigate to="/admin/restaurants" replace />} />
-          
-          {/* Catch all */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </RoleProvider>
-    </BrowserRouter>
+        {/* Routes for direct access based on URL */}
+        <Route path="/users" element={<Navigate to="/admin/users" replace />} />
+        <Route path="/restaurants" element={<Navigate to="/admin/restaurants" replace />} />
+        
+        {/* Catch all */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </RoleProvider>
   );
 }
 
