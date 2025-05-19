@@ -1,7 +1,7 @@
 
 import React from 'react';
 import DashboardLayout from '../../components/layouts/dashboard-layout';
-import { StaffTable } from '../../components/screens/manager';
+import StaffTable from '../../components/screens/manager/staff-table';
 
 export default function ManagerStaffManagementPage() {
   return (
