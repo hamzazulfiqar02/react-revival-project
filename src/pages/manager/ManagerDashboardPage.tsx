@@ -12,6 +12,7 @@ import { RedeemReporting } from '../../components/manager/redeem-reporting';
 import { RedemptionHistory } from '../../components/manager/redemption-history';
 import { RestaurantSettings } from '../../components/manager/restaurant-settings';
 import { Restaurant, Deal, Staff, Redemption } from '../../components/manager/types';
+import ManagerStaffManagementPage from './ManagerStaffManagementPage';
 
 export default function ManagerDashboardPage() {
   const navigate = useNavigate();
@@ -80,6 +81,12 @@ export default function ManagerDashboardPage() {
         </DashboardLayout>
       } />
       
+      <Route path="/overview" element={
+        <DashboardLayout type="manager">
+          <DashboardOverview restaurant={typedRestaurant} deals={deals || []} redemptions={redemptions || []} />
+        </DashboardLayout>
+      } />
+      
       <Route path="/deal-management" element={
         <DashboardLayout type="manager">
           <DealManagement 
@@ -91,16 +98,7 @@ export default function ManagerDashboardPage() {
         </DashboardLayout>
       } />
       
-      <Route path="/staff-management" element={
-        <DashboardLayout type="manager">
-          <StaffManagement 
-            staff={staff || []}
-            onAddStaff={handleAddStaff}
-            onUpdateStaff={handleUpdateStaff}
-            onDeleteStaff={deleteStaff}
-          />
-        </DashboardLayout>
-      } />
+      <Route path="/staff-management" element={<ManagerStaffManagementPage />} />
       
       <Route path="/report-redemption" element={
         <DashboardLayout type="manager">
